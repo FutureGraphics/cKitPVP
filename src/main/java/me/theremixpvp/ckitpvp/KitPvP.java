@@ -5,13 +5,14 @@ import com.flouet.code.base.configuration.yaml.YAMLConfigurationOption;
 import com.flouet.code.base.configuration.yaml.YAMLConfigurationProvider;
 import com.flouet.code.base.exceptions.ConfigurationSaveException;
 import me.theremixpvp.ckitpvp.commands.*;
-import me.theremixpvp.ckitpvp.commands.kits.*;
 import me.theremixpvp.ckitpvp.configuration.KitConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PlayerConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
-import me.theremixpvp.ckitpvp.listeners.*;
+import me.theremixpvp.ckitpvp.listeners.DeathListener;
+import me.theremixpvp.ckitpvp.listeners.JoinListener;
+import me.theremixpvp.ckitpvp.listeners.PlayerListener;
+import me.theremixpvp.ckitpvp.listeners.SoupListener;
 import me.theremixpvp.ckitpvp.listeners.kits.*;
-import me.theremixpvp.ckitpvp.commands.PlayerDataCommand;
 import me.theremixpvp.ckitpvp.shop.ShopCmd;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -46,28 +47,12 @@ public class KitPvP extends JavaPlugin {
     }
 
     public void executors() {
-        getCommand("pvp").setExecutor(new Kit_PVP(this));
-        getCommand("archer").setExecutor(new Kit_Archer(this));
-        getCommand("tank").setExecutor(new Kit_Tank(this));
-        getCommand("fisherman").setExecutor(new Kit_Fisherman(this));
-        getCommand("grappler").setExecutor(new Kit_Grappler(this));
-        getCommand("hulk").setExecutor(new Kit_Hulk(this));
-        getCommand("dodge").setExecutor(new Kit_Dodge(this));
-        getCommand("lucky").setExecutor(new Kit_Lucky(this));
-        getCommand("ez").setExecutor(new Kit_EZ(this));
-        getCommand("rusher").setExecutor(new Kit_Rusher(this));
-        getCommand("sniper").setExecutor(new Kit_Sniper(this));
-        getCommand("visionmaster").setExecutor(new Kit_VisionMaster(this));
-        getCommand("acrobat").setExecutor(new Kit_Acrobat(this));
-        getCommand("ninja").setExecutor(new Kit_Ninja(this));
-        getCommand("bomber").setExecutor(new Kit_Bomber(this));
         getCommand("stats").setExecutor(new StatCommand(this));
-        getCommand("credits").setExecutor(new CreditCommand(this));
-        getCommand("kits").setExecutor(new KitsCommand(this));
+        getCommand("credits").setExecutor(new CreditCommand());
+        getCommand("kits").setExecutor(new KitsCommand());
         getCommand("kit").setExecutor(new KitCommand());
-        getCommand("bank").setExecutor(new Bank(this));
+        getCommand("bank").setExecutor(new Bank());
         getCommand("soup").setExecutor(new SoupCommand());
-        getCommand("test").setExecutor(new Test(this));
         getCommand("hat").setExecutor(new HatCommand());
         getCommand("more").setExecutor(new MoreCommand());
         getCommand("shop").setExecutor(new ShopCmd());
@@ -76,12 +61,10 @@ public class KitPvP extends JavaPlugin {
     }
 
     public void listeners() {
-        pm.registerEvents(new DeathListener(this), this);
-        pm.registerEvents(new JoinListener(this), this);
-        pm.registerEvents(new SoupListener(this), this);
-        pm.registerEvents(new Test(this), this);
-        pm.registerEvents(new PlayerChat(), this);
-        pm.registerEvents(new PlayerListener(this), this);
+        pm.registerEvents(new DeathListener(), this);
+        pm.registerEvents(new JoinListener(), this);
+        pm.registerEvents(new SoupListener(), this);
+        pm.registerEvents(new PlayerListener(), this);
         //pm.registerEvents(ShopMenu, this);
 
 
