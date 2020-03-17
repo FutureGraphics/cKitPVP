@@ -5,44 +5,44 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 public class RusherEnch extends Enchantment {
-	
-	public RusherEnch(int id) {
-	    super(id);
+
+    public RusherEnch(int id) {
+        super(id);
     }
 
-	@Override
+    @Override
     public String getName() {
-	    return "Swift";
+        return "Swift";
     }
 
-	@Override
+    @Override
     public int getMaxLevel() {
-	    // TODO Auto-generated method stub
-	    return 5;
+        // TODO Auto-generated method stub
+        return 5;
     }
 
-	@Override
+    @Override
     public int getStartLevel() {
-	    // TODO Auto-generated method stub
-	    return 1;
+        // TODO Auto-generated method stub
+        return 1;
     }
 
-	@Override
+    @Override
     public EnchantmentTarget getItemTarget() {
-	    // TODO Auto-generated method stub
-	    return EnchantmentTarget.ARMOR_FEET;
+        // TODO Auto-generated method stub
+        return EnchantmentTarget.ARMOR_FEET;
     }
 
-	@Override
+    @Override
     public boolean conflictsWith(Enchantment other) {
-	    // TODO Auto-generated method stub
-	    return false;
+        // TODO Auto-generated method stub
+        return false;
     }
 
-	@Override
+    @Override
     public boolean canEnchantItem(ItemStack item) {
-	    // TODO Auto-generated method stub
-	    return true;
+        // TODO Auto-generated method stub
+        return true;
     }
 
 }

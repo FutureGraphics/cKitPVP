@@ -1,9 +1,5 @@
 package me.theremixpvp.ckitpvp.shop;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,16 +12,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class ShopMenu implements Listener {
-	
-	private final String name;
+
+    private final String name;
     private final int size;
     private OptionClickEventHandler handler;
     private Plugin plugin;
-   
+
     private String[] optionNames;
     private ItemStack[] optionIcons;
-   
+
     public ShopMenu(String name, int size, OptionClickEventHandler handler, Plugin plugin) {
         this.name = name;
         this.size = size;
@@ -35,21 +35,21 @@ public class ShopMenu implements Listener {
         this.optionIcons = new ItemStack[size];
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
-   
+
     public ShopMenu setOption(int position, ItemStack i, String name, String... info) {
         optionNames[position] = name;
         optionIcons[position] = setItemNameAndLore(i, name, info);
         return this;
     }
-    
+
     public ShopMenu setOption(int position, ItemStack i, String name, String info, List<String> desc) {
-    	optionNames[position] = name;
-    	optionIcons[position] = setItemNameAndLore(i, name, info, desc);
-    	return this;
+        optionNames[position] = name;
+        optionIcons[position] = setItemNameAndLore(i, name, info, desc);
+        return this;
     }
-   
+
     public void open(Player player) {
-    	if(player.getOpenInventory() != null) player.closeInventory();
+        if (player.getOpenInventory() != null) player.closeInventory();
         Inventory inventory = Bukkit.createInventory(player, size, name);
         for (int i = 0; i < optionIcons.length; i++) {
             if (optionIcons[i] != null) {
@@ -58,7 +58,7 @@ public class ShopMenu implements Listener {
         }
         player.openInventory(inventory);
     }
-   
+
     public void destroy() {
         HandlerList.unregisterAll(this);
         handler = null;
@@ -66,18 +66,18 @@ public class ShopMenu implements Listener {
         optionNames = null;
         optionIcons = null;
     }
-   
-    @EventHandler(priority=EventPriority.MONITOR)
+
+    @EventHandler(priority = EventPriority.MONITOR)
     void onInventoryClick(InventoryClickEvent event) {
         if (event.getInventory().getTitle().equals(name)) {
             event.setCancelled(true);
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < size && optionNames[slot] != null) {
                 Plugin plugin = this.plugin;
-                OptionClickEvent e = new OptionClickEvent((Player)event.getWhoClicked(), event.getCurrentItem(), slot, optionNames[slot]);
+                OptionClickEvent e = new OptionClickEvent((Player) event.getWhoClicked(), event.getCurrentItem(), slot, optionNames[slot]);
                 handler.onOptionClick(e);
                 if (e.willClose()) {
-                    final Player p = (Player)event.getWhoClicked();
+                    final Player p = (Player) event.getWhoClicked();
                     Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> p.closeInventory(), 1);
                 }
                 if (e.willDestroy()) {
@@ -86,32 +86,32 @@ public class ShopMenu implements Listener {
             }
         }
     }
-   
+
     private ItemStack setItemNameAndLore(ItemStack item, String name, String[] lore) {
         ItemMeta im = item.getItemMeta();
-            im.setDisplayName(name);
-            im.setLore(Arrays.asList(lore));
+        im.setDisplayName(name);
+        im.setLore(Arrays.asList(lore));
         item.setItemMeta(im);
         return item;
     }
-    
+
     private ItemStack setItemNameAndLore(ItemStack item, String name, String info, List<String> desc) {
         ItemMeta im = item.getItemMeta();
-            im.setDisplayName(name);
-            ArrayList<String> lore = new ArrayList<>();
-            lore.add(info);
+        im.setDisplayName(name);
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add(info);
         for (String s : desc) {
             lore.add(s);
         }
-            im.setLore(lore);
+        im.setLore(lore);
         item.setItemMeta(im);
         return item;
     }
-    
+
     public interface OptionClickEventHandler {
-    	void onOptionClick(OptionClickEvent event);
+        void onOptionClick(OptionClickEvent event);
 
     }
-   
+
 }
 
