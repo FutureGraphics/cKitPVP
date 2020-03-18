@@ -1,6 +1,6 @@
 name: cKitPVP
 main: me.theremixpvp.ckitpvp.Main
-version: "0.7"
+version: "1.0"
 author: TheRemixPvP
 commands:
   stats:
@@ -8,36 +8,6 @@ commands:
   credits:
     description: View your credits.
     aliases: [cr, c]
-  pvp:
-    description: Equip the PVP kit.
-  archer:
-    description: Equip the Archer kit.
-  tank:
-    description: Equip the tank kit.
-  fisherman:
-    description: Equip the Fisherman kit.
-  grappler:
-    description: Equip the Grappler kit.
-  hulk:
-    description: Equip the Hulk kit.
-  dodge:
-    description: Equip the Dodge kit.
-  lucky:
-    description: Equip the Lucky kit.
-  rusher:
-    description: Equip the Rusher kit.
-  sniper:
-    description: Equip the Sniper kit.
-  visionmaster:
-    description: Equip the VisionMaster kit.
-  ez:
-    description: Equip the EZ kit.
-  acrobat:
-    description: Equip the Acrobat kit.
-  ninja:
-    description: Equip the Ninja kit.
-  bomber:
-    description: Equip the Bomber kit.
   kits:
     description: List your kits.
   kit:
@@ -46,10 +16,8 @@ commands:
     description: Open your personal bank.
   soup:
     description: Get a chest full of soup.
-  test:
-    description: Testing things….
   hat:
-    description: Get a hat…duh….
+    description: Get a hat
   more:
     description: Get a stack of the item you're holding.
   shop:

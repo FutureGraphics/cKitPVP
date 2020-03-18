@@ -27,7 +27,8 @@ public class Bank implements CommandExecutor {
         }
 
         if (args.length == 1 && args[0].equalsIgnoreCase("reset")) {
-            if (!(p.hasPermission("ckitpvp.bank.reset"))) return true;
+            if (!(p.hasPermission("ckitpvp.bank.reset")))
+                return true;
 
             user.setBank(null);
             return true;
