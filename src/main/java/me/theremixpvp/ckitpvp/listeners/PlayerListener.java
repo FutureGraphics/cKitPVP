@@ -34,7 +34,7 @@ public class PlayerListener implements Listener {
         Player p = e.getPlayer();
 
         User user = User.byPlayer(p);
-        user.setCredits(user.credits() + amount);
+        user.setCredits(user.getCredits() + amount);
 
         p.sendMessage(ChatColor.GREEN + "You received " + amount + " credits for killing "
                 + itemStack.getItemMeta().getLore().get(0) + "!");

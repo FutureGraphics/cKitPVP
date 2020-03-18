@@ -1,54 +1,50 @@
 package me.theremixpvp.ckitpvp.shop;
 
+import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
+import com.flouet.code.utilities.minecraft.api.inventory.Slot;
+import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
 import me.theremixpvp.ckitpvp.User;
+import me.theremixpvp.ckitpvp.configuration.ShopConfiguration;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MenuManager {
 
-    static final MenuManager instance = new MenuManager();
+    private final List<ShopMenu> shopMenus;
 
-    public static MenuManager getInstance() {
-        return instance;
+    public MenuManager(List<ShopMenu> shopMenus) {
+        this.shopMenus = shopMenus;
     }
 
-    public void giveItem(ShopItem i, Player p) {
-        User pd = User.byName(p.getName());
-        if (pd.credits() >= i.getPrice()) {
-            pd.setCredits(pd.credits() - i.getPrice());
-            p.sendMessage(ChatColor.GREEN + "You bought a " + i.getName() + " for " + i.getPrice());
-            p.getInventory().addItem(i.getItem());
-            return;
+    public static MenuManager parse(ShopConfiguration configuration) {
+
+        List<ShopMenu> menus = new ArrayList<>();
+
+        for (Map.Entry<String, ShopConfiguration.MenuConfig> entry : configuration.menu.entrySet()) {
+            menus.add(ShopMenu.parse(entry.getValue(), entry.getKey()));
         }
-        p.sendMessage(ChatColor.RED + "You cannot afford this!");
+
+        return new MenuManager(menus);
     }
 
-    public void enchantItem(ShopItem i, Enchantment e, int level, Player p) {
-        User pd = PDUtils.getByName(p.getName());
-        if (pd.credits() >= i.getPrice()) {
-            pd.setCredits(pd.credits() - i.getPrice());
-            i.getItem().addUnsafeEnchantment(e, level);
-            p.sendMessage(ChatColor.GREEN + "You bought a " + e.getName() + " " + level + " enchantment for " + i.getPrice() + "!");
-            return;
+    public InventoryMap createInventory(Player player) {
+        Inventory inventory = Bukkit.createInventory(player, InventoryUtils.calculateInventorySize(shopMenus.size()),
+                "Shop");
+
+        InventoryMap map = new InventoryMap(inventory);
+
+        for (int i = 0; i < shopMenus.size(); i++) {
+            ShopMenu shopMenu = shopMenus.get(i);
+            map.addSlot(new Slot(i, shopMenu.getIcon(), shopMenu));
         }
-        p.sendMessage(ChatColor.RED + "You cannot afford this!");
+
+        return map;
     }
-
-    public void giveKit(String k, int price, Player p) {
-        User pd = PDUtils.getByName(p.getName());
-
-        if (pd.getUnlockedKits().contains(k) || p.hasPermission("ckitpvp.kit." + k)) {
-            p.sendMessage(ChatColor.RED + "You already own this kit!");
-            return;
-        }
-        if (pd.credits() >= price) {
-            pd.addkit(k);
-            pd.setCredits(pd.credits() - price);
-            p.sendMessage(ChatColor.GREEN + "You bought the " + k + " kit for " + price + "!");
-            return;
-        }
-        p.sendMessage(ChatColor.RED + "You cannot afford this!");
-    }
-
 }

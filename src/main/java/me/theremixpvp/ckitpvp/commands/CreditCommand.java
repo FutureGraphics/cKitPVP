@@ -24,7 +24,7 @@ public class CreditCommand implements CommandExecutor {
                 return true;
             }
 
-            player.sendMessage(ChatColor.AQUA + "Credits: " + ChatColor.DARK_AQUA + user.credits());
+            player.sendMessage(ChatColor.AQUA + "Credits: " + ChatColor.DARK_AQUA + user.getCredits());
             return true;
         }
 

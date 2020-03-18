@@ -54,16 +54,16 @@ public class SniperL implements Listener {
                     Random rand = new Random();
                     int ri = rand.nextInt(10) + 1;
                     int rd = ri;
-                    pd.setCredits(pd.credits() + rd);
-                    pd.setKills(pd.kills() + 1);
+                    pd.setCredits(pd.getCredits() + rd);
+                    pd.setKills(pd.getKills() + 1);
                     PDUtils.getByName(vic.getName()).setDeaths(PDUtils.getByName(vic.getName()).deaths() + 1);
                     p.sendMessage(ChatColor.GREEN + "You earned " + rd + " credits for killing " + vic.getName() + "!");
                 } else {
                     Random rand = new Random();
                     int ri = rand.nextInt(10) + 1;
                     int rd = ri;
-                    pd.setCredits(pd.credits() + rd);
-                    pd.setKills(pd.kills() + 1);
+                    pd.setCredits(pd.getCredits() + rd);
+                    pd.setKills(pd.getKills() + 1);
                     p.sendMessage(ChatColor.GREEN + "You earned " + rd + " credits for killing " + e.getEntityType() + "!");
                     if (Settings.deathmessages)
                         Bukkit.broadcastMessage(ChatColor.DARK_AQUA + p.getName() + ChatColor.GRAY + " killed " + ChatColor.DARK_AQUA + e.getEntityType());

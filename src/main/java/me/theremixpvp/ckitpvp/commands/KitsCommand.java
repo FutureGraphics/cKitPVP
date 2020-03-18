@@ -35,7 +35,8 @@ public class KitsCommand implements CommandExecutor {
             StringBuilder kits = new StringBuilder();
 
             for (Kit kit : Kit.getKits()) {
-                if (p.isOp() || p.hasPermission("ckitpvp.kit." + kit) || user.getUnlockedKits().contains(kit.getName())) {
+                if (p.isOp() || p.hasPermission("ckitpvp.kit." + kit)
+                        || user.getUnlockedKits().contains(kit)) {
                     kits.append(ChatColor.GREEN)
                             .append("-" + kit.getName() + ChatColor.GRAY + "\n" + ChatColor.RESET);
                     continue;

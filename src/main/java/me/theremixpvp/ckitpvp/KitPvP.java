@@ -4,16 +4,15 @@ import com.flouet.code.base.configuration.ConfigurationParser;
 import com.flouet.code.base.configuration.yaml.YAMLConfigurationOption;
 import com.flouet.code.base.configuration.yaml.YAMLConfigurationProvider;
 import com.flouet.code.base.exceptions.ConfigurationSaveException;
+import com.flouet.code.utilities.minecraft.api.configuration.PluginConfigurationParser;
 import me.theremixpvp.ckitpvp.commands.*;
 import me.theremixpvp.ckitpvp.configuration.KitConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PlayerConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
-import me.theremixpvp.ckitpvp.listeners.DeathListener;
-import me.theremixpvp.ckitpvp.listeners.JoinListener;
-import me.theremixpvp.ckitpvp.listeners.PlayerListener;
-import me.theremixpvp.ckitpvp.listeners.SoupListener;
+import me.theremixpvp.ckitpvp.configuration.ShopConfiguration;
+import me.theremixpvp.ckitpvp.listeners.*;
 import me.theremixpvp.ckitpvp.listeners.kits.*;
-import me.theremixpvp.ckitpvp.shop.ShopCmd;
+import me.theremixpvp.ckitpvp.shop.MenuManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,17 +25,25 @@ import java.util.logging.Logger;
 
 public class KitPvP extends JavaPlugin {
 
-    public static final Logger LOGGER = Logger.getLogger("Minecraft");
+    public static final Logger LOGGER = Logger.getLogger("cKitPvP");
     public static KitPvP instance;
     public static PlayerConfiguration playerConfig;
     public static KitConfiguration kitConfiguration;
+    public static ShopConfiguration shopConfiguration;
+    public static MenuManager menuManager;
+
+    private static PluginConfigurationParser<KitConfiguration> kitConfigParser;
     private static ConfigurationParser<PlayerConfiguration> playerConfigParser;
-    final PluginManager pm = Bukkit.getServer().getPluginManager();
 
     public void onEnable() {
         instance = this;
 
         loadConfig();
+
+        Kit.parseKits(kitConfiguration);
+        User.load(playerConfig);
+        menuManager = MenuManager.parse(shopConfiguration);
+
         executors();
         listeners();
 
@@ -55,18 +62,18 @@ public class KitPvP extends JavaPlugin {
         getCommand("soup").setExecutor(new SoupCommand());
         getCommand("hat").setExecutor(new HatCommand());
         getCommand("more").setExecutor(new MoreCommand());
-        getCommand("shop").setExecutor(new ShopCmd());
+        getCommand("shop").setExecutor(new ShopCommand());
         getCommand("playerdata").setExecutor(new PlayerDataCommand());
-        //getCommand("ss").setExecutor(new SuperSoup(this));
     }
 
     public void listeners() {
+        final PluginManager pm = Bukkit.getServer().getPluginManager();
+
+        pm.registerEvents(new ShopListener(), this);
         pm.registerEvents(new DeathListener(), this);
         pm.registerEvents(new JoinListener(), this);
         pm.registerEvents(new SoupListener(), this);
         pm.registerEvents(new PlayerListener(), this);
-        //pm.registerEvents(ShopMenu, this);
-
 
         pm.registerEvents(new FishermanL(this), this);
         pm.registerEvents(new GrapplerL(this), this);
@@ -88,16 +95,21 @@ public class KitPvP extends JavaPlugin {
         File config = new File(getDataFolder(), "config.yml");
         File players = new File(getDataFolder(), "players.yml");
         File kits = new File(getDataFolder(), "kits.yml");
+        File shop = new File(getDataFolder(), "shop.yml");
 
         copyFile(config);
         copyFile(players);
         copyFile(kits);
+        copyFile(shop);
 
         playerConfigParser = new ConfigurationParser<>(new YAMLConfigurationProvider(), PlayerConfiguration.class);
         playerConfig = playerConfigParser.load(new YAMLConfigurationOption(players));
 
-        kitConfiguration = new ConfigurationParser<>(new YAMLConfigurationProvider(), KitConfiguration.class)
-                .load(new YAMLConfigurationOption(kits));
+        kitConfigParser = new PluginConfigurationParser<>(new YAMLConfigurationProvider(), KitConfiguration.class);
+        kitConfiguration = kitConfigParser.load(new YAMLConfigurationOption(kits));
+
+        shopConfiguration = new PluginConfigurationParser<>(new YAMLConfigurationProvider(), ShopConfiguration.class)
+                .load(new YAMLConfigurationOption(shop));
 
         new ConfigurationParser<>(new YAMLConfigurationProvider(), PluginConfiguration.class)
                 .setMakeInstance(false)
@@ -119,12 +131,16 @@ public class KitPvP extends JavaPlugin {
 
     public void saveConfig() {
         try {
+            User.unload();
+            Kit.unload(kitConfiguration);
+
             playerConfigParser.save();
+            kitConfigParser.save();
         } catch (ConfigurationSaveException e) {
-            LOGGER.log(Level.SEVERE, "Could not save player configuration", e);
+            LOGGER.log(Level.SEVERE, "Could not save player configurations", e);
             return;
         }
 
-        LOGGER.log(Level.INFO, "Player configuration saved");
+        LOGGER.log(Level.INFO, "Configurations saved");
     }
 }

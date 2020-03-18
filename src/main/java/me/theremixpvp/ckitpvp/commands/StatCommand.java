@@ -26,9 +26,9 @@ public class StatCommand implements CommandExecutor {
             Player p = (Player) sender;
             User user = User.byPlayer(p);
 
-            int credits = user.credits();
-            int kills = user.kills();
-            int deaths = user.deaths();
+            int credits = user.getCredits();
+            int kills = user.getKills();
+            int deaths = user.getDeaths();
             p.sendMessage(ChatColor.DARK_AQUA + "----[ " + p.getName() + " ]----");
             p.sendMessage(ChatColor.GRAY + "Kills: " + ChatColor.DARK_AQUA + kills);
             p.sendMessage(ChatColor.GRAY + "Deaths: " + ChatColor.DARK_AQUA + deaths);
@@ -44,9 +44,9 @@ public class StatCommand implements CommandExecutor {
         }
 
         if (args.length == 1) {
-            int credits = user.credits();
-            int kills = user.kills();
-            int deaths = user.deaths();
+            int credits = user.getCredits();
+            int kills = user.getKills();
+            int deaths = user.getDeaths();
 
             sender.sendMessage(ChatColor.DARK_AQUA + "----[ " + user.name() + " ]----");
             sender.sendMessage(ChatColor.GRAY + "Kills: " + ChatColor.DARK_AQUA + kills);

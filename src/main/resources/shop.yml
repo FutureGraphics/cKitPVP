@@ -1,0 +1,35 @@
+menu:
+  weapons:
+    icon: 276,name:&c&lWeapons # Diamond Sword
+    items:
+      - 276,price:75 # Diamond Sword
+      - 267,price:40 # Iron Sword
+      - 272,price:15 # Stone Sword
+      - 268,price:5 # Wood Sword
+  enchantments:
+    icon: 145,name:&a&lEnchantments
+    items:
+      - 403,type:enchantment,sharpness:2,price:60     # Enchanted Book
+      - 403,type:enchantment,sharpness:3,price:100    # Enchanted Book
+      - 403,type:enchantment,sharpness:4,price:130    # Enchanted Book
+      - 403,type:enchantment,fire_aspect:1,price:60   # Enchanted Book
+      - 403,type:enchantment,fire_aspect:2,price:90   # Enchanted Book
+      - 403,type:enchantment,protection:1,price:40    # Enchanted Book
+      - 403,type:enchantment,protection:2,price:80    # Enchanted Book
+      - 403,type:enchantment,protection:3,price:130   # Enchanted Book
+      - 403,type:enchantment,power:2,price:40         # Enchanted Book
+      - 403,type:enchantment,power:3,price:90         # Enchanted Book
+      - 403,type:enchantment,power:4,price:150        # Enchanted Book
+      - 403,type:enchantment,power:5,price:200        # Enchanted Book
+      - 403,type:enchantment,flame:1,price:70         # Enchanted Book
+      - 403,type:enchantment,punch:2,price:80         # Enchanted Book
+      - 403,type:enchantment,infinity:1,price:200     # Enchanted Book
+      - 403,type:enchantment,unbreaking:1,price:100   # Enchanted Book
+      - 403,type:enchantment,unbreaking:2,price:180   # Enchanted Book
+  kits:
+    icon: 322:1,name:&d&lKits # Enchanted Golden Apple
+    items:
+      - 262,price:640,type:kit,name:Dodge,lore:&aReturns ALL projectsiles|&aback to their sender! # Arrow
+      - 346,price:800,type:kit,name:Fisherman,lore:&aReel in with a player on your hook|&aand the player will be teleported to you # Fishing rod
+      - 388,price:700,type:kit,name:Hulk,lore:&aUse your special hulk strength ball|&ato active the power of Hulk! # Emerald
+      - 402,price:650,type:kit,name:Bomber,lore:&aUse your bombs to jar your|&aenemies with powerful explosions! # Firework Star

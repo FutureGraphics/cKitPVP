@@ -1,117 +1,90 @@
 package me.theremixpvp.ckitpvp.shop;
 
+import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
+import com.flouet.code.utilities.minecraft.api.inventory.Slot;
+import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
+import me.theremixpvp.ckitpvp.KitPvP;
+import me.theremixpvp.ckitpvp.User;
+import me.theremixpvp.ckitpvp.configuration.ShopConfiguration;
+import me.theremixpvp.ckitpvp.exceptions.ShopParsingException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
-public class ShopMenu implements Listener {
+public class ShopMenu {
 
     private final String name;
-    private final int size;
-    private OptionClickEventHandler handler;
-    private Plugin plugin;
+    private final ItemStack icon;
+    private final List<ShopItem> items;
 
-    private String[] optionNames;
-    private ItemStack[] optionIcons;
-
-    public ShopMenu(String name, int size, OptionClickEventHandler handler, Plugin plugin) {
+    public ShopMenu(String name, ItemStack icon, List<ShopItem> items) {
         this.name = name;
-        this.size = size;
-        this.handler = handler;
-        this.plugin = plugin;
-        this.optionNames = new String[size];
-        this.optionIcons = new ItemStack[size];
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        this.icon = icon;
+        this.items = items;
     }
 
-    public ShopMenu setOption(int position, ItemStack i, String name, String... info) {
-        optionNames[position] = name;
-        optionIcons[position] = setItemNameAndLore(i, name, info);
-        return this;
-    }
+    public static ShopMenu parse(ShopConfiguration.MenuConfig config, String name) {
 
-    public ShopMenu setOption(int position, ItemStack i, String name, String info, List<String> desc) {
-        optionNames[position] = name;
-        optionIcons[position] = setItemNameAndLore(i, name, info, desc);
-        return this;
-    }
-
-    public void open(Player player) {
-        if (player.getOpenInventory() != null) player.closeInventory();
-        Inventory inventory = Bukkit.createInventory(player, size, name);
-        for (int i = 0; i < optionIcons.length; i++) {
-            if (optionIcons[i] != null) {
-                inventory.setItem(i, optionIcons[i]);
+        List<ShopItem> items = new ArrayList<>();
+        for (String item : config.items) {
+            try {
+                items.add(ShopItem.parse(item));
+            } catch (ShopParsingException e) {
+                KitPvP.LOGGER.log(Level.SEVERE, "Shop Item '" + item + "' in menu: '" + name +
+                        "' is not valid", e);
             }
         }
-        player.openInventory(inventory);
+
+        return new ShopMenu(name, config.icon, items);
     }
 
-    public void destroy() {
-        HandlerList.unregisterAll(this);
-        handler = null;
-        plugin = null;
-        optionNames = null;
-        optionIcons = null;
-    }
+    public InventoryMap generateInventory(Player player) {
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    void onInventoryClick(InventoryClickEvent event) {
-        if (event.getInventory().getTitle().equals(name)) {
-            event.setCancelled(true);
-            int slot = event.getRawSlot();
-            if (slot >= 0 && slot < size && optionNames[slot] != null) {
-                Plugin plugin = this.plugin;
-                OptionClickEvent e = new OptionClickEvent((Player) event.getWhoClicked(), event.getCurrentItem(), slot, optionNames[slot]);
-                handler.onOptionClick(e);
-                if (e.willClose()) {
-                    final Player p = (Player) event.getWhoClicked();
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> p.closeInventory(), 1);
-                }
-                if (e.willDestroy()) {
-                    destroy();
-                }
-            }
+        Inventory inventory = Bukkit.createInventory(player, InventoryUtils.calculateInventorySize(items.size()),
+                getTitle());
+
+        InventoryMap map = new InventoryMap(inventory);
+
+        for (int i = 0; i < items.size(); i++) {
+            ShopItem item = items.get(i);
+
+            map.addSlot(new Slot(i, item.createItem(player), item));
         }
+
+        return map;
     }
 
-    private ItemStack setItemNameAndLore(ItemStack item, String name, String[] lore) {
-        ItemMeta im = item.getItemMeta();
-        im.setDisplayName(name);
-        im.setLore(Arrays.asList(lore));
-        item.setItemMeta(im);
-        return item;
+    public void onClick(User user) {
+        InventoryMap inventoryMap = generateInventory(user.getPlayer());
+        inventoryMap.generateInventory();
+
+        user.setInventory(inventoryMap);
+
+        user.getPlayer().openInventory(inventoryMap.getInventory());
     }
 
-    private ItemStack setItemNameAndLore(ItemStack item, String name, String info, List<String> desc) {
-        ItemMeta im = item.getItemMeta();
-        im.setDisplayName(name);
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(info);
-        for (String s : desc) {
-            lore.add(s);
-        }
-        im.setLore(lore);
-        item.setItemMeta(im);
-        return item;
+    private String getTitle() {
+        if(icon.hasItemMeta() && icon.getItemMeta().hasDisplayName())
+            return icon.getItemMeta().getDisplayName();
+
+        return name;
     }
 
-    public interface OptionClickEventHandler {
-        void onOptionClick(OptionClickEvent event);
-
+    public String getName() {
+        return name;
     }
 
+    public ItemStack getIcon() {
+        return icon;
+    }
+
+    public List<ShopItem> getItems() {
+        return items;
+    }
 }
 

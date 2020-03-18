@@ -1,6 +1,10 @@
 package me.theremixpvp.ckitpvp;
 
+import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
+import com.flouet.code.utilities.minecraft.api.player.EconomyProvider;
 import me.theremixpvp.ckitpvp.configuration.PlayerConfiguration;
+import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -8,24 +12,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-public class User {
+public class User implements EconomyProvider {
 
     private static List<User> users = new ArrayList<>();
 
     private final String name;
     private final UUID uuid;
+    private final PlayerConfiguration.PlayerInfo info;
 
     private int credits;
     private Kit kit;
     private int kills;
     private int deaths;
-    private List<String> unlockedKits = new ArrayList<>();
-    private Inventory bank;
+    private List<Kit> unlockedKits = new ArrayList<>();
+    private InventoryMap inventory;
 
-    public User(String name, UUID uuid) {
+    public User(String name, UUID uuid, PlayerConfiguration.PlayerInfo info) {
         this.name = name;
         this.uuid = uuid;
+
+        if (info == null)
+            this.info = createInfo(name, uuid);
+        else
+            this.info = info;
+    }
+
+    private PlayerConfiguration.PlayerInfo createInfo(String name, UUID uuid) {
+        PlayerConfiguration.PlayerInfo info = new PlayerConfiguration.PlayerInfo();
+        info.kits = new ArrayList<>();
+        info.credits = PluginConfiguration.startMoney;
+        info.name = name;
+
+        KitPvP.playerConfig.players.put(uuid.toString(), info);
+
+        return info;
     }
 
     public static User byPlayer(Player p) {
@@ -43,13 +65,30 @@ public class User {
         for (Map.Entry<String, PlayerConfiguration.PlayerInfo> entry : configuration.players.entrySet()) {
             PlayerConfiguration.PlayerInfo info = entry.getValue();
 
-            User user = new User(info.name, UUID.fromString(entry.getKey()));
+            User user = new User(info.name, UUID.fromString(entry.getKey()), info);
             user.setCredits(info.credits);
             user.setKills(info.kills);
             user.setDeaths(info.deaths);
-            user.setKits(info.kits);
+
+            user.setKits(
+                    Kit.getKits()
+                            .stream()
+                            .filter(k -> info.kits.contains(k.getName()))
+                            .collect(Collectors.toList())
+            );
 
             users.add(user);
+        }
+    }
+
+    public static void unload() {
+        for (User user : users) {
+            PlayerConfiguration.PlayerInfo info = user.getInfo();
+            info.name = user.getName();
+            info.deaths = user.getDeaths();
+            info.kills = user.getKills();
+            info.kits = user.getUnlockedKits().stream().map(Kit::getName).collect(Collectors.toList());
+            info.credits = user.getCredits();
         }
     }
 
@@ -64,11 +103,16 @@ public class User {
         users.add(user);
     }
 
+
+    public PlayerConfiguration.PlayerInfo getInfo() {
+        return info;
+    }
+
     public String getName() {
         return name;
     }
 
-    private void setKits(List<String> kits) {
+    private void setKits(List<Kit> kits) {
         this.unlockedKits = kits;
     }
 
@@ -76,7 +120,7 @@ public class User {
         return uuid;
     }
 
-    public int credits() {
+    public int getCredits() {
         return this.credits;
     }
 
@@ -84,7 +128,7 @@ public class User {
         this.credits = credits;
     }
 
-    public int kills() {
+    public int getKills() {
         return this.kills;
     }
 
@@ -92,7 +136,7 @@ public class User {
         this.kills = kills;
     }
 
-    public int deaths() {
+    public int getDeaths() {
         return this.deaths;
     }
 
@@ -100,11 +144,11 @@ public class User {
         this.deaths = deaths;
     }
 
-    public List<String> getUnlockedKits() {
+    public List<Kit> getUnlockedKits() {
         return this.unlockedKits;
     }
 
-    public void addkit(String kit) {
+    public void addkit(Kit kit) {
         this.unlockedKits.add(kit);
     }
 
@@ -116,12 +160,39 @@ public class User {
         this.kit = kit;
     }
 
-    public Inventory getBank() {
-        return this.bank;
+    @Override
+    public float getBalance() {
+        return this.credits;
     }
 
-    public void setBank(Inventory bank) {
-        this.bank = bank;
+    @Override
+    public void removeBalance(float amount) {
+        this.credits -= amount;
     }
 
+    @Override
+    public void addBalance(float amount) {
+        this.credits += amount;
+    }
+
+    @Override
+    public void setBalance(float amount) {
+        this.credits = (int) amount;
+    }
+
+    public boolean kitUnlocked(String kitName) {
+        return unlockedKits.stream().anyMatch(kit -> kit.getName().equalsIgnoreCase(kitName));
+    }
+
+    public InventoryMap getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(InventoryMap inventory) {
+        this.inventory = inventory;
+    }
+
+    public Player getPlayer() {
+        return Bukkit.getPlayer(uuid);
+    }
 }
