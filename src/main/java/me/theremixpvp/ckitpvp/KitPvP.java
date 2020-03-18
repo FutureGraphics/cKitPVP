@@ -10,6 +10,7 @@ import me.theremixpvp.ckitpvp.configuration.KitConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PlayerConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
 import me.theremixpvp.ckitpvp.configuration.ShopConfiguration;
+import me.theremixpvp.ckitpvp.kit.Kit;
 import me.theremixpvp.ckitpvp.listeners.*;
 import me.theremixpvp.ckitpvp.listeners.kits.*;
 import me.theremixpvp.ckitpvp.shop.MenuManager;

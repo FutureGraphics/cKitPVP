@@ -37,6 +37,7 @@ public class BomberL implements Listener {
                 p.getInventory().setItem(1, bombs);
                 return;
             }
+
             cooldown.add(p);
             Bukkit.getScheduler().scheduleSyncDelayedTask(KitPvP.instance, () -> {
                 p.getWorld().createExplosion(e.getEgg().getLocation(), 3F, false);

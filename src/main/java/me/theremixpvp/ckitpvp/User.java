@@ -4,9 +4,9 @@ import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
 import com.flouet.code.utilities.minecraft.api.player.EconomyProvider;
 import me.theremixpvp.ckitpvp.configuration.PlayerConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
+import me.theremixpvp.ckitpvp.kit.Kit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;

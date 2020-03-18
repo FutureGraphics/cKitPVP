@@ -1,9 +1,9 @@
-package me.theremixpvp.ckitpvp;
+package me.theremixpvp.ckitpvp.kit;
 
 import com.flouet.code.utilities.minecraft.api.exceptions.ParseItemException;
 import com.flouet.code.utilities.minecraft.api.item.parse.ItemParser;
+import me.theremixpvp.ckitpvp.KitPvP;
 import me.theremixpvp.ckitpvp.configuration.KitConfiguration;
-import org.apache.log4j.Logger;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
