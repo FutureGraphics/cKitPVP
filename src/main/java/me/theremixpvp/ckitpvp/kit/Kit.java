@@ -3,8 +3,11 @@ package me.theremixpvp.ckitpvp.kit;
 import com.flouet.code.utilities.minecraft.api.exceptions.ParseItemException;
 import com.flouet.code.utilities.minecraft.api.item.parse.ItemParser;
 import me.theremixpvp.ckitpvp.KitPvP;
+import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.configuration.KitConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +25,14 @@ public class Kit {
 
     private final String name;
     private final ItemStack displayIcon;
-    private final int price;
     private final List<ItemStack> items;
 
     private boolean needPermission;
     private Ability ability;
 
-    public Kit(String name, ItemStack displayIcon, int price, List<ItemStack> items) {
+    public Kit(String name, ItemStack displayIcon,  List<ItemStack> items) {
         this.name = name;
         this.displayIcon = displayIcon;
-        this.price = price;
         this.items = items;
     }
 
@@ -44,7 +45,6 @@ public class Kit {
 
             String name = entry.getKey();
             ItemStack displayIcon = configKit.displayItem;
-            int price = configKit.price;
             List<ItemStack> items = new ArrayList<>();
 
             for (String item : configKit.items) {
@@ -52,11 +52,10 @@ public class Kit {
                     items.add(ItemParser.DEFAULT_PARSER.parse(item));
                 } catch (ParseItemException e) {
                     KitPvP.LOGGER.log(Level.SEVERE, "Could not parse item '" + item + "' in kit: '" + name + "'");
-                    continue;
                 }
             }
 
-            Kit kit = new Kit(name, displayIcon, price, items);
+            Kit kit = new Kit(name, displayIcon, items);
             loadedKits.add(kit);
 
             if(activeKits.contains(name))
@@ -64,6 +63,13 @@ public class Kit {
         }
 
         KitPvP.LOGGER.log(Level.INFO, "Loaded " + activeKits.size() + " kits");
+    }
+
+    public boolean hasPlayerPermission(Player player) {
+        if(!needPermission)
+            return true;
+
+        return player.hasPermission("ckitpvp.kit." + this.name);
     }
 
     public static void unload(KitConfiguration configuration) {
@@ -102,15 +108,44 @@ public class Kit {
         return name;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     public Ability getAbility() {
         return ability;
     }
 
     public void setAbility(Ability ability) {
         this.ability = ability;
+    }
+
+    public ItemStack getDisplayIcon() {
+        return displayIcon;
+    }
+
+    public ItemStack getDisplayIcon(User user) {
+        ItemStack stack = this.displayIcon.clone();
+        ItemMeta meta = stack.getItemMeta();
+
+        if(!meta.hasDisplayName())
+            meta.setDisplayName(this.name);
+
+        List<String> lore;
+        if(meta.hasLore())
+            lore = meta.getLore();
+        else
+            lore = new ArrayList<>();
+
+        if(user.getUnlockedKits().contains(this))
+            lore.add("§a§lUNLOCKED");
+        else if(hasPlayerPermission(user.getPlayer()))
+            lore.add("§cNOT PURCHASED");
+        else
+            lore.add("§cLOCKED");
+
+        meta.setLore(lore);
+        stack.setItemMeta(meta);
+        return stack;
+    }
+
+    public List<ItemStack> getItems() {
+        return items;
     }
 }

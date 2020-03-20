@@ -3,6 +3,7 @@ package me.theremixpvp.ckitpvp.shop;
 import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
 import com.flouet.code.utilities.minecraft.api.inventory.Slot;
 import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
+import me.theremixpvp.ckitpvp.IClickable;
 import me.theremixpvp.ckitpvp.KitPvP;
 import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.configuration.ShopConfiguration;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-public class ShopMenu {
+public class ShopMenu implements IClickable {
 
     private final String name;
     private final ItemStack icon;
@@ -59,15 +60,6 @@ public class ShopMenu {
         return map;
     }
 
-    public void onClick(User user) {
-        InventoryMap inventoryMap = generateInventory(user.getPlayer());
-        inventoryMap.generateInventory();
-
-        user.setInventory(inventoryMap);
-
-        user.getPlayer().openInventory(inventoryMap.getInventory());
-    }
-
     private String getTitle() {
         if(icon.hasItemMeta() && icon.getItemMeta().hasDisplayName())
             return icon.getItemMeta().getDisplayName();
@@ -85,6 +77,16 @@ public class ShopMenu {
 
     public List<ShopItem> getItems() {
         return items;
+    }
+
+    @Override
+    public void onClick(Player player, User user, Inventory inventory) {
+        InventoryMap inventoryMap = generateInventory(user.getPlayer());
+        inventoryMap.generateInventory();
+
+        user.setInventory(inventoryMap);
+
+        user.getPlayer().openInventory(inventoryMap.getInventory());
     }
 }
 

@@ -2,11 +2,17 @@ package me.theremixpvp.ckitpvp;
 
 import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
 import com.flouet.code.utilities.minecraft.api.player.EconomyProvider;
+import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
+import com.flouet.code.utilities.minecraft.api.utilities.ItemUtils;
+import com.flouet.code.utilities.minecraft.api.utilities.PotionUtils;
 import me.theremixpvp.ckitpvp.configuration.PlayerConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
 import me.theremixpvp.ckitpvp.kit.Kit;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +164,24 @@ public class User implements EconomyProvider {
 
     public void setKit(Kit kit) {
         this.kit = kit;
+
+        Player player = getPlayer();
+        InventoryUtils.clearInventory(player.getInventory());
+        PotionUtils.takeAllEffectsFromPlayer(player);
+
+        for (ItemStack item : kit.getItems()) {
+            Material m = item.getType();
+            if(ItemUtils.isHelmet(m))
+                player.getInventory().setHelmet(item);
+            else if(ItemUtils.isChestplate(m))
+                player.getInventory().setChestplate(item);
+            else if(ItemUtils.isLeggings(m))
+                player.getInventory().setLeggings(item);
+            else if(ItemUtils.isBoots(m))
+                player.getInventory().setBoots(item);
+            else
+                player.getInventory().addItem(item);
+        }
     }
 
     @Override
@@ -194,5 +218,13 @@ public class User implements EconomyProvider {
 
     public Player getPlayer() {
         return Bukkit.getPlayer(uuid);
+    }
+
+    public void addDeath() {
+        this.deaths++;
+    }
+
+    public void addKill() {
+        this.kills++;
     }
 }

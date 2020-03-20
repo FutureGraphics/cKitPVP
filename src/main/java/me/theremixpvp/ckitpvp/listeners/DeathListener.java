@@ -1,5 +1,6 @@
 package me.theremixpvp.ckitpvp.listeners;
 
+import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -25,9 +26,10 @@ public class DeathListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-
         Player killer = player.getKiller();
 
+        User.byPlayer(player).addDeath();
+        User.byPlayer(killer).addKill();
 
         dropAward(player, killer);
 

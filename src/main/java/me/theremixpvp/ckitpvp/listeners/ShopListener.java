@@ -1,6 +1,7 @@
 package me.theremixpvp.ckitpvp.listeners;
 
 import com.flouet.code.utilities.minecraft.api.inventory.Slot;
+import me.theremixpvp.ckitpvp.IClickable;
 import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.shop.ShopItem;
 import me.theremixpvp.ckitpvp.shop.ShopMenu;
@@ -22,13 +23,13 @@ public class ShopListener implements Listener {
     public void onShopClick(InventoryClickEvent event) {
 
         HumanEntity clicked = event.getWhoClicked();
-        if(!(clicked instanceof Player))
+        if (!(clicked instanceof Player))
             return;
 
         Player player = (Player) clicked;
         User user = User.byPlayer(player);
 
-        if(user.getInventory() == null)
+        if (user.getInventory() == null)
             return;
 
         if (!user.getInventory().getInventory().equals(event.getClickedInventory()))
@@ -36,14 +37,12 @@ public class ShopListener implements Listener {
 
         Slot slot = user.getInventory().findSlot(event.getRawSlot());
 
-        if(slot == null)
+        if (slot == null)
             return;
 
         Object object = slot.getObject();
-        if(object instanceof ShopMenu)
-            ((ShopMenu) object).onClick(user);
-        else if(object instanceof ShopItem)
-            ((ShopItem) object).onClick(user);
+        if (object instanceof IClickable)
+            ((IClickable) object).onClick(player, user, event.getClickedInventory());
 
     }
 

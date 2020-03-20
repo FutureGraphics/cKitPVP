@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-public class Bank implements CommandExecutor {
+public class BankCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player))
@@ -26,16 +26,7 @@ public class Bank implements CommandExecutor {
             return true;
         }
 
-        if (args.length == 1 && args[0].equalsIgnoreCase("reset")) {
-            if (!(p.hasPermission("ckitpvp.bank.reset")))
-                return true;
-
-            user.setBank(null);
-            return true;
-        }
-
-        return false;
-
+        return true;
     }
 
 }

@@ -3,12 +3,14 @@ package me.theremixpvp.ckitpvp.shop;
 import com.flouet.code.base.utils.MapUtils;
 import com.flouet.code.utilities.minecraft.api.item.parse.ItemParser;
 import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
+import me.theremixpvp.ckitpvp.IClickable;
 import me.theremixpvp.ckitpvp.kit.Kit;
 import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.exceptions.ShopParsingException;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ShopItem {
+public class ShopItem implements IClickable {
 
     private final ShopType type;
     private final ItemStack item;
@@ -81,8 +83,15 @@ public class ShopItem {
         return stack;
     }
 
-    public void onClick(User user) {
-        Player player = user.getPlayer();
+    private String getKitName() {
+        if(!item.hasItemMeta() || !item.getItemMeta().hasDisplayName())
+            return null;
+
+        return item.getItemMeta().getDisplayName().toLowerCase().replace(" ", "");
+    }
+
+    @Override
+    public void onClick(Player player, User user, Inventory inventory) {
         if(user.getBalance() < price) {
             player.sendMessage("&cYou don't have enough credits");
             return;
@@ -113,8 +122,8 @@ public class ShopItem {
         if(type == ShopType.ENCHANTMENT) {
             ItemStack itemInHand = player.getItemInHand();
             if(itemInHand == null) {
-               player.sendMessage("&cYou need to hold an item in your hand");
-               return;
+                player.sendMessage("&cYou need to hold an item in your hand");
+                return;
             }
 
             user.removeBalance(price);
@@ -125,14 +134,6 @@ public class ShopItem {
             player.sendMessage("&aEnchantment applied");
             return;
         }
-
-    }
-
-    private String getKitName() {
-        if(!item.hasItemMeta() || !item.getItemMeta().hasDisplayName())
-            return null;
-
-        return item.getItemMeta().getDisplayName().toLowerCase().replace(" ", "");
     }
 
     public enum ShopType {

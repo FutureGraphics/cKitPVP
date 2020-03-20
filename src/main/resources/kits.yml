@@ -1,52 +1,52 @@
 kits:
   acrobat:
+
     items:
-      - 276,sharpness:1
-      - 287,name:&aSpring,lore:&d--Ability--|&6Punch the air with this and you|&6will be launched into the air!
-      - 298,color:FUCHSIA
-      - 317,fall_protection:5,durability:8
-      - 282,amount:34,name:&dStew
-      - 308
-      - 307
+      - 276,sharpness:1 # Diamond sword
+      - 287,name:&aSpring,lore:&d--Ability--|&6Punch the air with this and you|&6will be launched into the air! # String
+      - 298,color:FUCHSIA # Leather helmet
+      - 317,fall_protection:5,unbreaking:8 # Golden boots
+      - 282,amount:34,name:&dStew # Mushroom soup
+      - 308 # Iron pants
+      - 307 # Iron chestplate
   archer:
     items:
-      - 268,sharpness:2,durability:3
+      - 268,sharpness:2,unbreaking:3 # Wooden sword
       - 261,infinite:1,power:3 # Bow
-      - 309
-      - 300
-      - 299
-      - 302
-      - 282,amount:33,name:&dStew
+      - 309 # Leather boots
+      - 300 # Leather pants
+      - 299 # Leather chestplate
+      - 302 # Chainmail helmet
+      - 282,amount:33,name:&dStew # Mushroom soup
       - 262 # Arrow
   bomber:
     items:
-      - 268
-      - 344,amount:2,name:&aBomb
-      - 307,blast_protection:5
-      - 308,blast_protection:5
+      - 268 # Wooden sword
+      - 344,amount:2,name:&aBomb # Egg
+      - 307,blast_protection:5 # Iron chestplate
+      - 308,blast_protection:5 # Iron pants
       - 301 # Leather boots
-      - 306
-      - 382:amount:34,name:&dStew
+      - 306 # Iron helmet
+      - 382:amount:34,name:&dStew # Mushroom soup
   doge:
     items:
-      - 306 # Diamond sword
-      - 307
-      - 308
-      - 309
-      - 268,sharpness:1
-      - 382:amount:34,name:&dStew
+      - 276 # Diamond sword
+      - 307 # Iron chestplate
+      - 308 # Iron pants
+      - 309 # Leather boots
+      - 382:amount:34,name:&dStew # Mushroom soup
   ez:
     items:
-      - 306,sharpness:1,fire_aspec:2 # Diamond sword
-      - 310,protection:4
-      - 311,protection:4
-      - 312,protection:4
-      - 313,protection:4
+      - 276,sharpness:1,fire_aspec:2 # Diamond sword
+      - 310,protection:4 # Diamond helmet
+      - 311,protection:4 # Diamond chestplate
+      - 312,protection:4 # Diamond pants
+      - 313,protection:4 # Diamond boots
       - 382,amount:34,name:&dStew # Mushroom soup
   fisherman:
     items:
-      - 272,durability:4 # Stone sword
-      - 346,durability:4 # Fishing rood
+      - 272,unbreaking:4 # Stone sword
+      - 346,unbreaking:4 # Fishing rood
       - 301 # Leather boots
       - 300 # Leather pants
       - 299 # Leather chestplate
@@ -54,8 +54,8 @@ kits:
       - 382,amount:34,name:&dStew # Mushroom soup
   grappler:
     items:
-      - 267,durability:1 # Iron Sword
-      - 346,name:&aGrappling Hook,durability:5 # Fishing rood
+      - 267,unbreaking:1 # Iron Sword
+      - 346,name:&aGrappling Hook,unbreaking:5 # Fishing rood
       - 305,fall_protection:10 # Chainmail boots
       - 304 # Chainmail leggings
       - 307 # Iron chestplate
@@ -72,7 +72,7 @@ kits:
       - 382,amount:34,name:&dStew # Mushroom soup
   lucky:
     items:
-      - 306,sharpness:1 # Diamond sword
+      - 276,sharpness:1 # Diamond sword
       - 298,color:AQUA # Leather helmet
       - 309 # Leather boots
       - 308 # Leather pants
@@ -80,7 +80,7 @@ kits:
       - 382,amount:34,name:&dStew # Mushroom soup
   ninja:
     items:
-      - 306,sharpness:1 # Diamond sword
+      - 276,sharpness:1 # Diamond sword
       - 331,name:&dVanish Powder # Red stone
       - 310 # Diamond helmet
       - 303 # Chainmail chestplate
@@ -89,7 +89,7 @@ kits:
       - 382,amount:34,name:&dStew # Mushroom soup
   pvp:
     items:
-      - 306,sharpness:1 # Diamond sword
+      - 276,sharpness:1 # Diamond sword
       - 306 # Iron helmet
       - 307 # Iron chestplate
       - 308 # Iron pants
@@ -99,7 +99,7 @@ kits:
     items:
       - 267,sharpness:1 # Iron sword
       - 288,name:&aRush Feather # Feather
-      - 313,durability:1,lore:&7Swift I|^^ Yes it is a custom enchatnemnt # Diamond boots
+      - 313,unbreaking:1,lore:&7Swift I|^^ Yes it is a custom enchatnemnt # Diamond boots
       - 308 # Iron pants
       - 307 # Iron chestplate
       - 306 # Iron helmet
@@ -116,7 +116,7 @@ kits:
       - 261,amount:32 # Arrow
   tank:
     items:
-      - 272,sharpness:1,durability:3 # Stone sword
+      - 272,sharpness:1,unbreaking:3 # Stone sword
       - 310 # Diamond helmet
       - 311 # Diamond chestplate
       - 312 # Diamond pants

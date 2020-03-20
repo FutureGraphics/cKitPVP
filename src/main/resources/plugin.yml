@@ -1,5 +1,5 @@
 name: cKitPVP
-main: me.theremixpvp.ckitpvp.Main
+main: me.theremixpvp.ckitpvp.KitPvP
 version: "1.0"
 author: TheRemixPvP
 commands:

@@ -75,7 +75,7 @@ public class KitPvP extends JavaPlugin {
         getCommand("credits").setExecutor(new CreditCommand());
         getCommand("kits").setExecutor(new KitsCommand());
         getCommand("kit").setExecutor(new KitCommand());
-        getCommand("bank").setExecutor(new Bank());
+        getCommand("bank").setExecutor(new BankCommand());
         getCommand("soup").setExecutor(new SoupCommand());
         getCommand("hat").setExecutor(new HatCommand());
         getCommand("more").setExecutor(new MoreCommand());

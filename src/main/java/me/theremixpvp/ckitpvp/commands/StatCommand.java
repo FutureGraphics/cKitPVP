@@ -48,7 +48,7 @@ public class StatCommand implements CommandExecutor {
             int kills = user.getKills();
             int deaths = user.getDeaths();
 
-            sender.sendMessage(ChatColor.DARK_AQUA + "----[ " + user.name() + " ]----");
+            sender.sendMessage(ChatColor.DARK_AQUA + "----[ " + user.getName() + " ]----");
             sender.sendMessage(ChatColor.GRAY + "Kills: " + ChatColor.DARK_AQUA + kills);
             sender.sendMessage(ChatColor.GRAY + "Deaths: " + ChatColor.DARK_AQUA + deaths);
             sender.sendMessage(ChatColor.GRAY + "Credits: " + ChatColor.DARK_AQUA + credits);
