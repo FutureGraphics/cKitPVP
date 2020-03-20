@@ -3,7 +3,7 @@ package me.theremixpvp.ckitpvp.shop;
 import com.flouet.code.base.utils.MapUtils;
 import com.flouet.code.utilities.minecraft.api.item.parse.ItemParser;
 import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
-import me.theremixpvp.ckitpvp.Kit;
+import me.theremixpvp.ckitpvp.kit.Kit;
 import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.exceptions.ShopParsingException;
 import org.bukkit.Sound;

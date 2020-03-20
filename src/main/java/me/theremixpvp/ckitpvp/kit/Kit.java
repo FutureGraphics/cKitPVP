@@ -1,9 +1,9 @@
-package me.theremixpvp.ckitpvp;
+package me.theremixpvp.ckitpvp.kit;
 
 import com.flouet.code.utilities.minecraft.api.exceptions.ParseItemException;
 import com.flouet.code.utilities.minecraft.api.item.parse.ItemParser;
+import me.theremixpvp.ckitpvp.KitPvP;
 import me.theremixpvp.ckitpvp.configuration.KitConfiguration;
-import org.apache.log4j.Logger;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ public class Kit {
     private final List<ItemStack> items;
 
     private boolean needPermission;
+    private Ability ability;
 
     public Kit(String name, ItemStack displayIcon, int price, List<ItemStack> items) {
         this.name = name;
@@ -103,5 +104,13 @@ public class Kit {
 
     public int getPrice() {
         return price;
+    }
+
+    public Ability getAbility() {
+        return ability;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
     }
 }

@@ -10,8 +10,10 @@ import me.theremixpvp.ckitpvp.configuration.KitConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PlayerConfiguration;
 import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
 import me.theremixpvp.ckitpvp.configuration.ShopConfiguration;
+import me.theremixpvp.ckitpvp.kit.AbilityManager;
+import me.theremixpvp.ckitpvp.kit.Kit;
+import me.theremixpvp.ckitpvp.kit.abilities.*;
 import me.theremixpvp.ckitpvp.listeners.*;
-import me.theremixpvp.ckitpvp.listeners.kits.*;
 import me.theremixpvp.ckitpvp.shop.MenuManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -44,9 +46,24 @@ public class KitPvP extends JavaPlugin {
         User.load(playerConfig);
         menuManager = MenuManager.parse(shopConfiguration);
 
+        registerAbilities();
         executors();
         listeners();
+    }
 
+    private void registerAbilities() {
+        AbilityManager.registerAbilities(
+                new AcrobatAbility(),
+                new BomberAbility(),
+                new DodgeAbility(),
+                new FishermanAbility(),
+                new GrapplerAbility(),
+                new HulkAbility(),
+                new LuckyAbility(),
+                new NinjaAbility(),
+                new RusherAbility(),
+                new SniperAbility(),
+                new VisionMasterAbility());
     }
 
     public void onDisable() {
@@ -66,7 +83,7 @@ public class KitPvP extends JavaPlugin {
         getCommand("playerdata").setExecutor(new PlayerDataCommand());
     }
 
-    public void listeners() {
+    private void listeners() {
         final PluginManager pm = Bukkit.getServer().getPluginManager();
 
         pm.registerEvents(new ShopListener(), this);
@@ -74,18 +91,7 @@ public class KitPvP extends JavaPlugin {
         pm.registerEvents(new JoinListener(), this);
         pm.registerEvents(new SoupListener(), this);
         pm.registerEvents(new PlayerListener(), this);
-
-        pm.registerEvents(new FishermanL(this), this);
-        pm.registerEvents(new GrapplerL(this), this);
-        pm.registerEvents(new HulkL(this), this);
-        pm.registerEvents(new DodgeL(this), this);
-        pm.registerEvents(new LuckyL(this), this);
-        pm.registerEvents(new RusherL(this), this);
-        pm.registerEvents(new SniperL(this), this);
-        pm.registerEvents(new VisionMasterL(this), this);
-        pm.registerEvents(new AcrobatL(this), this);
-        pm.registerEvents(new NinjaL(this), this);
-        pm.registerEvents(new BomberL(this), this);
+        pm.registerEvents(new AbilityListener(), this);
     }
 
     public void loadConfig() {

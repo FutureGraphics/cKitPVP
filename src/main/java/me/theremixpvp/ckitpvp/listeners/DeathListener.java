@@ -16,6 +16,11 @@ import java.util.Random;
 
 public class DeathListener implements Listener {
 
+    private final Random random;
+
+    public DeathListener() {
+        random = new Random();
+    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
@@ -35,7 +40,6 @@ public class DeathListener implements Listener {
     }
 
     private void dropAward(Player player, Player killer) {
-        Random random = new Random();
         int reward = random.nextInt(100) + 1;
 
         ItemStack rewardItem = new ItemStack(Material.EMERALD);
