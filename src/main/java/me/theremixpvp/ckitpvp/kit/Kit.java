@@ -26,6 +26,7 @@ public class Kit {
     private final List<ItemStack> items;
 
     private boolean needPermission;
+    private Ability ability;
 
     public Kit(String name, ItemStack displayIcon, int price, List<ItemStack> items) {
         this.name = name;
@@ -103,5 +104,13 @@ public class Kit {
 
     public int getPrice() {
         return price;
+    }
+
+    public Ability getAbility() {
+        return ability;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
     }
 }

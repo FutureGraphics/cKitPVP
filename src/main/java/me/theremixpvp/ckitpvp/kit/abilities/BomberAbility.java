@@ -1,8 +1,8 @@
 package me.theremixpvp.ckitpvp.kit.abilities;
 
 import me.theremixpvp.ckitpvp.KitPvP;
+import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.kit.Ability;
-import me.theremixpvp.ckitpvp.kit.Kit;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -36,7 +36,7 @@ public class BomberAbility extends Ability {
 
 
     @Override
-    protected void activate(Player player, Event event) {
+    protected void activate(Player player, User user, Event event) {
         PlayerEggThrowEvent e = (PlayerEggThrowEvent) event;
 
         World location = player.getLocation().getWorld();

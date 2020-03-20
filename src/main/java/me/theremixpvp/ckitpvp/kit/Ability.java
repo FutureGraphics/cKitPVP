@@ -1,10 +1,12 @@
 package me.theremixpvp.ckitpvp.kit;
 
 import me.theremixpvp.ckitpvp.KitPvP;
+import me.theremixpvp.ckitpvp.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -21,13 +23,29 @@ public abstract class Ability {
     protected final String name;
     protected final int coolDown;
 
+    private final Map<Class<? extends Event>, AbilityEventListener<? extends Event>> additionalEventListener;
+
     public Ability(String name, int coolDown) {
         this.name = name;
         this.coolDown = coolDown;
+        this.additionalEventListener = new HashMap<>();
     }
 
-    public boolean isApplicable(Kit kit, Event event) {
+    public boolean isApplicableAdditionalEvent(Event event) {
+        for (Class<? extends Event> clazz : additionalEventListener.keySet()) {
+            if (event.getClass().isAssignableFrom(clazz))
+                return true;
+        }
+
+        return false;
+    }
+
+    public boolean isApplicableAbilityEvent(Kit kit, Event event) {
         return kits.contains(kit) && canActivate(event);
+    }
+
+    protected <T extends Event> void addAdditionalEventListener(Class<T> clazz, AbilityEventListener<T> listener) {
+        additionalEventListener.put(clazz, listener);
     }
 
     protected abstract boolean canActivate(Event event);
@@ -36,15 +54,15 @@ public abstract class Ability {
         kits.add(kit);
     }
 
-    public void activateAbility(Player player, Event event) {
-        if (coolDown > 0  && coolDownMap.containsKey(player) && coolDownMap.get(player) > System.currentTimeMillis()) {
+    public void activateAbility(Player player, User user, Event event) {
+        if (coolDown > 0 && coolDownMap.containsKey(player) && coolDownMap.get(player) > System.currentTimeMillis()) {
             onNotifyCoolDown(player, event);
             return;
         }
 
-        activate(player, event);
+        activate(player, user, event);
 
-        if(coolDown > 0) {
+        if (coolDown > 0) {
             coolDownMap.put(player, System.currentTimeMillis() + coolDown * 1000);
             startCoolDownScheduler(player, event);
         }
@@ -78,6 +96,22 @@ public abstract class Ability {
 
     }
 
-    protected abstract void activate(Player player, Event event);
+    protected abstract void activate(Player player, User user, Event event);
 
+    public List<Kit> getKits() {
+        return this.kits;
+    }
+
+    protected interface AbilityEventListener<T extends Event> {
+
+        void onEvent(T event);
+
+        default void trigger(Event event) {
+            onEvent((T) event);
+        }
+    }
+
+    public Map<Class<? extends Event>, AbilityEventListener<? extends Event>> getAdditionalEventListener() {
+        return additionalEventListener;
+    }
 }

@@ -1,7 +1,7 @@
 package me.theremixpvp.ckitpvp.kit.abilities;
 
+import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.kit.Ability;
-import me.theremixpvp.ckitpvp.kit.Kit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -26,7 +26,7 @@ public class GrapplerAbility extends Ability {
     }
 
     @Override
-    protected void activate(Player player, Event event) {
+    protected void activate(Player player, User user, Event event) {
         PlayerFishEvent e = (PlayerFishEvent) event;
         if(e.getState() != PlayerFishEvent.State.IN_GROUND)
             return;

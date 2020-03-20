@@ -1,11 +1,11 @@
 package me.theremixpvp.ckitpvp.kit.abilities;
 
+import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.kit.Ability;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 /**
@@ -32,7 +32,7 @@ public class AcrobatAbility extends Ability {
     }
 
     @Override
-    protected void activate(Player player, Event event) {
+    protected void activate(Player player, User user, Event event) {
         Vector v = player.getVelocity();
         v.add(player.getLocation().getDirection().multiply(2))
                 .setY(1.35677);

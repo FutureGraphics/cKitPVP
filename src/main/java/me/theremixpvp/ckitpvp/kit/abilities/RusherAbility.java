@@ -11,15 +11,15 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 /**
- * Created by Florian Hergenhahn at 2020-03-18 <br>
+ * Created by Florian Hergenhahn at 2020-03-20 <br>
  * Copyright © Flouet 2020
  *
  * @author Florian Hergenhahn
  */
-public class HulkAbility extends Ability {
+public class RusherAbility extends Ability {
 
-    public HulkAbility() {
-        super("hulk", 30);
+    public RusherAbility() {
+        super("rusher", 30);
     }
 
     @Override
@@ -29,17 +29,17 @@ public class HulkAbility extends Ability {
 
         PlayerInteractEvent e = (PlayerInteractEvent) event;
 
-        return e.getItem().getType() == Material.FIREWORK_CHARGE;
+        return e.getItem().getType() == Material.FEATHER;
     }
 
     @Override
     protected void activate(Player player, User user, Event event) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 300, 1));
-        player.sendMessage(ChatColor.GREEN + "You have activated the power of hulk!");
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 160, 2));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 160, 1));
     }
 
     @Override
     protected void onCoolDownEnd(Player player, Event event) {
-        player.sendMessage("§dYour hulk ability is recharged!");
+        player.sendMessage(ChatColor.DARK_AQUA + "Your Rush ability is recharged!");
     }
 }

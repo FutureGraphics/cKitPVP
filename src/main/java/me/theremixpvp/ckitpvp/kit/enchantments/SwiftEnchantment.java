@@ -1,12 +1,18 @@
-package me.theremixpvp.ckitpvp.listeners.kits;
+package me.theremixpvp.ckitpvp.kit.enchantments;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-public class RusherEnch extends Enchantment {
+/**
+ * Created by Florian Hergenhahn at 2020-03-20 <br>
+ * Copyright © Flouet 2020
+ *
+ * @author Florian Hergenhahn
+ */
+public class SwiftEnchantment extends Enchantment {
 
-    public RusherEnch(int id) {
+    public SwiftEnchantment(int id) {
         super(id);
     }
 
@@ -17,32 +23,26 @@ public class RusherEnch extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        // TODO Auto-generated method stub
-        return 5;
+        return 1;
     }
 
     @Override
     public int getStartLevel() {
-        // TODO Auto-generated method stub
         return 1;
     }
 
     @Override
     public EnchantmentTarget getItemTarget() {
-        // TODO Auto-generated method stub
-        return EnchantmentTarget.ARMOR_FEET;
+        return EnchantmentTarget.ALL;
     }
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        // TODO Auto-generated method stub
         return true;
     }
-
 }
