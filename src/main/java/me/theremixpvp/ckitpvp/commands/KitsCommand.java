@@ -46,8 +46,6 @@ public class KitsCommand implements CommandExecutor {
                     InventoryUtils.calculateInventorySize(ownedKits.size()) +
                     (ownedKits.size() > 0 ? 9 : 0);
 
-            System.out.println("SIZE " + size);
-
             Inventory inventory = Bukkit.createInventory(player, size ,
                     "Kits");
             InventoryMap map = new InventoryMap(inventory);
@@ -60,10 +58,9 @@ public class KitsCommand implements CommandExecutor {
             if (ownedKits.size() > 0) {
 
                 ItemStack row = ItemUtils.createItem(Material.STAINED_GLASS_PANE, 1,
-                        BlockColor.BLACK.getId(), "");
+                        BlockColor.BLACK.getId(), ".");
 
                 index = InventoryUtils.calculateInventorySize(ownedKits.size());
-                System.out.println("INDEX " + index);
                 for (int i = 0; i < 9; i++) {
                     map.addSlot(new Slot(index, row.clone()));
                     index++;

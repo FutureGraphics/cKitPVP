@@ -65,7 +65,7 @@ public abstract class Ability {
         activate(player, user, event);
 
         if (coolDown > 0) {
-            coolDownMap.put(player, System.currentTimeMillis() + coolDown * 1000);
+            coolDownMap.put(player, System.currentTimeMillis() + (coolDown * 1000));
             startCoolDownScheduler(player, event);
         }
 
@@ -93,7 +93,7 @@ public abstract class Ability {
      * Will be activated when the user tries to activate the ability but the cool down is still active
      */
     protected void onNotifyCoolDown(Player player, Event event) {
-        float seconds = System.currentTimeMillis() / 1000f;
+        float seconds = (coolDownMap.get(player) - System.currentTimeMillis()) / 1000f;
         player.sendMessage("§cYou have to wait " + Math.round(seconds) + " seconds");
 
     }
@@ -115,5 +115,9 @@ public abstract class Ability {
         default void trigger(Event event) {
             onEvent((T) event);
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }

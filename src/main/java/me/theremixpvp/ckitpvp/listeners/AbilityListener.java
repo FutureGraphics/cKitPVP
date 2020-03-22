@@ -38,12 +38,6 @@ public class AbilityListener implements Listener {
     }
 
     @EventHandler
-    private void onPlayerInteractEvent(PlayerInteractEvent event) {
-        AbilityManager.triggerAdditionalAbilityEvents(event);
-        AbilityManager.triggerAbilityEvents(event.getPlayer(), event);
-    }
-
-    @EventHandler
     private void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
         AbilityManager.triggerAdditionalAbilityEvents(event);
 

@@ -16,6 +16,7 @@ active_kits:
   - visionmaster
 kits:
   acrobat:
+    ability: acrobat
     display_item: 287,name:&aAcrobat
     items:
       - 276,sharpness:1 # Diamond sword
@@ -37,6 +38,7 @@ kits:
       - 282,amount:33,name:&dStew # Mushroom soup
       - 262 # Arrow
   bomber:
+    ability: bomber
     display_item: 344,name:&aBomber
     items:
       - 268 # Wooden sword
@@ -45,15 +47,16 @@ kits:
       - 308,blast_protection:5 # Iron pants
       - 301 # Leather boots
       - 306 # Iron helmet
-      - 382,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   dodge:
+    abiilty: dodge
     display_item: 261,name:&aDodge
     items:
       - 276 # Diamond sword
       - 307 # Iron chestplate
       - 308 # Iron pants
       - 309 # Leather boots
-      - 382,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   ez:
     display_item: 276,name:&aEz,sharpness:1
     items:
@@ -62,8 +65,9 @@ kits:
       - 311,protection:4 # Diamond chestplate
       - 312,protection:4 # Diamond pants
       - 313,protection:4 # Diamond boots
-      - 382,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   fisherman:
+    ability: fisherman
     display_item: 346,name:&aFisherman
     items:
       - 272,unbreaking:4 # Stone sword
@@ -72,8 +76,9 @@ kits:
       - 300 # Leather pants
       - 299 # Leather chestplate
       - 302 # Chainmail helmet
-      - 382,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   grappler:
+    ability: grappler
     display_item: 346,name:&aGrappler
     items:
       - 267,unbreaking:1 # Iron Sword
@@ -82,8 +87,9 @@ kits:
       - 304 # Chainmail leggings
       - 307 # Iron chestplate
       - 302 # Chainmail helmet
-      - 382,amount:32,name:&dStew # Mushroom soup
+      - 282,amount:32,name:&dStew # Mushroom soup
   hulk:
+    ability: hulk
     display_item: 298,color:GREEN,name:&aHulk
     items:
       - 267,sharpness:1 # Iron sword
@@ -92,8 +98,9 @@ kits:
       - 300,color:GREEN # Leather pants
       - 299,color:GREEN # Leather chestplate
       - 298,color:GREEN # Leather helmet
-      - 382,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   lucky:
+    ability: lucky
     display_item: 41,name:&aLucky
     items:
       - 276,sharpness:1 # Diamond sword
@@ -101,8 +108,9 @@ kits:
       - 309 # Leather boots
       - 308 # Leather pants
       - 307 # Leather chestplate
-      - 382,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   ninja:
+    ability: ninja
     display_item: 351:8,name:&aNinja
     items:
       - 276,sharpness:1 # Diamond sword
@@ -111,7 +119,7 @@ kits:
       - 303 # Chainmail chestplate
       - 304 # Chainmail pants
       - 305 # Chainmail boots
-      - 382,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   pvp:
     display_item: 276,name:&aPvP
     items:
@@ -120,8 +128,9 @@ kits:
       - 307 # Iron chestplate
       - 308 # Iron pants
       - 309 # Iron boots
-      - 392,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   rusher:
+    ability: rusher
     display_item: 288,name:&aRusher
     items:
       - 267,sharpness:1 # Iron sword
@@ -130,8 +139,9 @@ kits:
       - 308 # Iron pants
       - 307 # Iron chestplate
       - 306 # Iron helmet
-      - 392,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   sniper:
+    ability: sniper
     display_item: 261,power:1,name:&aSniper
     items:
       - 267,sharpness:1 # Iron sword
@@ -140,7 +150,7 @@ kits:
       - 303 # Chainmail chestplate
       - 304 # Chainmail pants
       - 305 # Chainmail boots
-      - 392,amount:32,name:&dStew # Mushroom soup
+      - 282,amount:32,name:&dStew # Mushroom soup
       - 261,amount:32 # Arrow
   tank:
     display_item: 311,name:&aTank
@@ -150,8 +160,9 @@ kits:
       - 311 # Diamond chestplate
       - 312 # Diamond pants
       - 313 # Diamond boots
-      - 392,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup
   visionmaster:
+    ability: visionmaster
     display_item: 399,name:&aVision Master
     items:
       - 267 # Iron sword
@@ -159,4 +170,4 @@ kits:
       - 308 # Iron pants
       - 307 # Iron chestplate
       - 306 # Iron helmet
-      - 392,amount:34,name:&dStew # Mushroom soup
+      - 282,amount:34,name:&dStew # Mushroom soup

@@ -24,10 +24,11 @@ public class AbilityManager {
         abilities.add(ability);
     }
 
-    public static List<Ability> getAbilitiesByKit(Kit kit) {
+    public static Ability getAbilityByName(String name) {
         return abilities.stream()
-                .filter(ability -> ability.getKits().contains(kit))
-                .collect(Collectors.toList());
+                .filter(ability -> ability.getName().equalsIgnoreCase(name))
+                .findAny()
+                .orElse(null);
     }
 
     public static <T extends Event> void triggerAdditionalAbilityEvents(Event event) {

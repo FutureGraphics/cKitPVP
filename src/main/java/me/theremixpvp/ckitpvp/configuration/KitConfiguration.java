@@ -22,6 +22,9 @@ public class KitConfiguration {
         @ConfigField
         public List<String> items;
 
+        @ConfigField
+        public String ability;
+
         @ConfigField(name = "display_item")
         public ItemStack displayItem;
 

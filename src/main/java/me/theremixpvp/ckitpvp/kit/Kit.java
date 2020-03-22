@@ -48,6 +48,7 @@ public class Kit {
             boolean needPermission = configKit.permission;
             ItemStack displayIcon = configKit.displayItem;
 
+
             if (displayIcon == null)
                 KitPvP.LOGGER.log(Level.WARNING, "Display Item of '" + name + "' is null");
 
@@ -62,6 +63,18 @@ public class Kit {
             }
 
             Kit kit = new Kit(name, displayIcon, items, needPermission);
+            if (configKit.ability != null) {
+                Ability ability = AbilityManager.getAbilityByName(configKit.ability);
+                if (ability == null) {
+                    KitPvP.LOGGER.log(Level.WARNING, "Could not find ability '" + configKit.ability + "' at '" +
+                            name + "'");
+                } else {
+                    kit.setAbility(ability);
+                    ability.addKit(kit);
+                    KitPvP.LOGGER.log(Level.INFO, "Ability '" + ability.getName() + "' added to '" + name + "'");
+                }
+            }
+
             loadedKits.add(kit);
 
             if (activeKits.contains(name))

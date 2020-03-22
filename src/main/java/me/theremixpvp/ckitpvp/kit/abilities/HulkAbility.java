@@ -1,12 +1,15 @@
 package me.theremixpvp.ckitpvp.kit.abilities;
 
+import com.flouet.code.utilities.minecraft.api.utilities.ItemUtils;
 import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.kit.Ability;
+import me.theremixpvp.ckitpvp.kit.Kit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -17,6 +20,7 @@ import org.bukkit.potion.PotionEffectType;
  * @author Florian Hergenhahn
  */
 public class HulkAbility extends Ability {
+
 
     public HulkAbility() {
         super("hulk", 30);
@@ -34,7 +38,7 @@ public class HulkAbility extends Ability {
 
     @Override
     protected void activate(Player player, User user, Event event) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 300, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 20, 1));
         player.sendMessage(ChatColor.GREEN + "You have activated the power of hulk!");
     }
 

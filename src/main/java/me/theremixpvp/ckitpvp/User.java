@@ -186,6 +186,9 @@ public class User implements EconomyProvider {
             else
                 player.getInventory().addItem(item);
         }
+
+        if(kit.getAbility() != null)
+            kit.getAbility().onKitSelection(player, kit);
     }
 
     @Override

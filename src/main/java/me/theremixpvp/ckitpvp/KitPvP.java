@@ -42,12 +42,12 @@ public class KitPvP extends JavaPlugin {
         instance = this;
 
         loadConfig();
+        registerAbilities();
 
         Kit.parseKits(kitConfiguration);
         User.load(playerConfig);
         menuManager = MenuManager.parse(shopConfiguration);
 
-        registerAbilities();
         executors();
         listeners();
     }
