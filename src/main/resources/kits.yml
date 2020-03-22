@@ -1,6 +1,22 @@
+active_kits:
+  - acrobat
+  - archer
+  - bomber
+  - dodge
+  - ez
+  - fisherman
+  - grappler
+  - hulk
+  - lucky
+  - ninja
+  - pvp
+  - rusher
+  - sniper
+  - tank
+  - visionmaster
 kits:
   acrobat:
-
+    display_item: 287,name:&aAcrobat
     items:
       - 276,sharpness:1 # Diamond sword
       - 287,name:&aSpring,lore:&d--Ability--|&6Punch the air with this and you|&6will be launched into the air! # String
@@ -10,6 +26,7 @@ kits:
       - 308 # Iron pants
       - 307 # Iron chestplate
   archer:
+    display_item: 261,name:&aArcher
     items:
       - 268,sharpness:2,unbreaking:3 # Wooden sword
       - 261,infinite:1,power:3 # Bow
@@ -20,6 +37,7 @@ kits:
       - 282,amount:33,name:&dStew # Mushroom soup
       - 262 # Arrow
   bomber:
+    display_item: 344,name:&aBomber
     items:
       - 268 # Wooden sword
       - 344,amount:2,name:&aBomb # Egg
@@ -27,15 +45,17 @@ kits:
       - 308,blast_protection:5 # Iron pants
       - 301 # Leather boots
       - 306 # Iron helmet
-      - 382:amount:34,name:&dStew # Mushroom soup
-  doge:
+      - 382,amount:34,name:&dStew # Mushroom soup
+  dodge:
+    display_item: 261,name:&aDodge
     items:
       - 276 # Diamond sword
       - 307 # Iron chestplate
       - 308 # Iron pants
       - 309 # Leather boots
-      - 382:amount:34,name:&dStew # Mushroom soup
+      - 382,amount:34,name:&dStew # Mushroom soup
   ez:
+    display_item: 276,name:&aEz,sharpness:1
     items:
       - 276,sharpness:1,fire_aspec:2 # Diamond sword
       - 310,protection:4 # Diamond helmet
@@ -44,6 +64,7 @@ kits:
       - 313,protection:4 # Diamond boots
       - 382,amount:34,name:&dStew # Mushroom soup
   fisherman:
+    display_item: 346,name:&aFisherman
     items:
       - 272,unbreaking:4 # Stone sword
       - 346,unbreaking:4 # Fishing rood
@@ -53,6 +74,7 @@ kits:
       - 302 # Chainmail helmet
       - 382,amount:34,name:&dStew # Mushroom soup
   grappler:
+    display_item: 346,name:&aGrappler
     items:
       - 267,unbreaking:1 # Iron Sword
       - 346,name:&aGrappling Hook,unbreaking:5 # Fishing rood
@@ -62,6 +84,7 @@ kits:
       - 302 # Chainmail helmet
       - 382,amount:32,name:&dStew # Mushroom soup
   hulk:
+    display_item: 298,color:GREEN,name:&aHulk
     items:
       - 267,sharpness:1 # Iron sword
       - 402,name:&aHulk Stength # Firework charge
@@ -71,6 +94,7 @@ kits:
       - 298,color:GREEN # Leather helmet
       - 382,amount:34,name:&dStew # Mushroom soup
   lucky:
+    display_item: 41,name:&aLucky
     items:
       - 276,sharpness:1 # Diamond sword
       - 298,color:AQUA # Leather helmet
@@ -79,6 +103,7 @@ kits:
       - 307 # Leather chestplate
       - 382,amount:34,name:&dStew # Mushroom soup
   ninja:
+    display_item: 351:8,name:&aNinja
     items:
       - 276,sharpness:1 # Diamond sword
       - 331,name:&dVanish Powder # Red stone
@@ -88,6 +113,7 @@ kits:
       - 305 # Chainmail boots
       - 382,amount:34,name:&dStew # Mushroom soup
   pvp:
+    display_item: 276,name:&aPvP
     items:
       - 276,sharpness:1 # Diamond sword
       - 306 # Iron helmet
@@ -96,6 +122,7 @@ kits:
       - 309 # Iron boots
       - 392,amount:34,name:&dStew # Mushroom soup
   rusher:
+    display_item: 288,name:&aRusher
     items:
       - 267,sharpness:1 # Iron sword
       - 288,name:&aRush Feather # Feather
@@ -105,6 +132,7 @@ kits:
       - 306 # Iron helmet
       - 392,amount:34,name:&dStew # Mushroom soup
   sniper:
+    display_item: 261,power:1,name:&aSniper
     items:
       - 267,sharpness:1 # Iron sword
       - 261,power:1 # Bow
@@ -115,6 +143,7 @@ kits:
       - 392,amount:32,name:&dStew # Mushroom soup
       - 261,amount:32 # Arrow
   tank:
+    display_item: 311,name:&aTank
     items:
       - 272,sharpness:1,unbreaking:3 # Stone sword
       - 310 # Diamond helmet
@@ -122,7 +151,8 @@ kits:
       - 312 # Diamond pants
       - 313 # Diamond boots
       - 392,amount:34,name:&dStew # Mushroom soup
-  visonmaster:
+  visionmaster:
+    display_item: 399,name:&aVision Master
     items:
       - 267 # Iron sword
       - 399,name:&aVsionArrow Gun # Nether star

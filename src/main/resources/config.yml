@@ -1,1 +1,6 @@
 death-messages: true
+show_join_credits: true
+soup_heal: 7
+start_money: 10
+cool_down:
+  soup_command: 45
