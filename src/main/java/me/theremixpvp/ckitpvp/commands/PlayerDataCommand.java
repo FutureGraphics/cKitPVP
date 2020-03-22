@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class PlayerDataCommand implements CommandExecutor {
 
@@ -15,17 +14,17 @@ public class PlayerDataCommand implements CommandExecutor {
         }
 
         if (args.length <= 0) {
-            sender.sendMessage(ChatColor.GOLD + "/user <set:add:reset> <Player> <option> [value]");
+            sender.sendMessage(ChatColor.GOLD + "/user <set:add:reset> <player> <option> [value]");
             return true;
         }
-        
+
         User user = User.byName(args[0]);
-        
-        if(user == null) {
+
+        if (user == null) {
             sender.sendMessage(ChatColor.RED + "Player not found!");
             return true;
         }
-        
+
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("reset")) {
                 reset(user, args, sender);
@@ -35,7 +34,7 @@ public class PlayerDataCommand implements CommandExecutor {
         return true;
     }
 
-    private void reset(User user, String[] args, CommandSender sender ) {
+    private void reset(User user, String[] args, CommandSender sender) {
         if (args[2].equalsIgnoreCase("all")) {
             user.setCredits(0);
             user.setDeaths(0);
@@ -56,5 +55,5 @@ public class PlayerDataCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.GOLD + "Kits reset!");
         }
     }
-    
+
 }

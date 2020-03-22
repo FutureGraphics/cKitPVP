@@ -1,7 +1,7 @@
 package me.theremixpvp.ckitpvp.commands;
 
-import me.theremixpvp.ckitpvp.kit.Kit;
 import me.theremixpvp.ckitpvp.User;
+import me.theremixpvp.ckitpvp.kit.Kit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

@@ -21,7 +21,7 @@ public class HatCommand implements CommandExecutor {
         }
 
         ItemStack itemStack = player.getItemInHand();
-        if(itemStack == null) {
+        if (itemStack == null) {
             player.sendMessage(ChatColor.RED + "You don't have anything in your hand");
             return true;
         }

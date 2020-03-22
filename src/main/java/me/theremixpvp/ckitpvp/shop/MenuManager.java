@@ -3,11 +3,8 @@ package me.theremixpvp.ckitpvp.shop;
 import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
 import com.flouet.code.utilities.minecraft.api.inventory.Slot;
 import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
-import me.theremixpvp.ckitpvp.User;
 import me.theremixpvp.ckitpvp.configuration.ShopConfiguration;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 

@@ -61,7 +61,7 @@ public class ShopMenu implements IClickable {
     }
 
     private String getTitle() {
-        if(icon.hasItemMeta() && icon.getItemMeta().hasDisplayName())
+        if (icon.hasItemMeta() && icon.getItemMeta().hasDisplayName())
             return icon.getItemMeta().getDisplayName();
 
         return name;

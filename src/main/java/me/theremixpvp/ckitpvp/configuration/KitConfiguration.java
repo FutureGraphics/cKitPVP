@@ -22,9 +22,6 @@ public class KitConfiguration {
         @ConfigField
         public List<String> items;
 
-        @ConfigField
-        public int price;
-
         @ConfigField(name = "display_item")
         public ItemStack displayItem;
 

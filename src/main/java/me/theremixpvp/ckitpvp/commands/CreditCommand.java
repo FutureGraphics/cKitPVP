@@ -29,6 +29,8 @@ public class CreditCommand implements CommandExecutor {
         }
 
         if (args.length >= 3) {
+
+            // /credits set <player> <value>
             if (!sender.isOp()) {
                 return true;
             }

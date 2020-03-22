@@ -5,8 +5,9 @@ import com.flouet.code.utilities.minecraft.api.inventory.InventoryMap;
 import com.flouet.code.utilities.minecraft.api.inventory.Slot;
 import com.flouet.code.utilities.minecraft.api.utilities.InventoryUtils;
 import com.flouet.code.utilities.minecraft.api.utilities.ItemUtils;
-import me.theremixpvp.ckitpvp.kit.Kit;
+import me.theremixpvp.ckitpvp.KitPvP;
 import me.theremixpvp.ckitpvp.User;
+import me.theremixpvp.ckitpvp.kit.Kit;
 import me.theremixpvp.ckitpvp.shop.KitItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,13 +19,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class KitsCommand implements CommandExecutor {
-
-    private List<String> defkits = Arrays.asList("PvP", "Archer");
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
@@ -43,9 +42,14 @@ public class KitsCommand implements CommandExecutor {
                     .filter(kit -> !ownedKits.contains(kit))
                     .collect(Collectors.toList());
 
-            int size = (ownedKits.size() > 0 ? 9 : 0) + kits.size() + ownedKits.size();
+            int size = InventoryUtils.calculateInventorySize(kits.size()) +
+                    InventoryUtils.calculateInventorySize(ownedKits.size()) +
+                    (ownedKits.size() > 0 ? 9 : 0);
 
-            Inventory inventory = Bukkit.createInventory(player, InventoryUtils.calculateInventorySize(size), "Kits");
+            System.out.println("SIZE " + size);
+
+            Inventory inventory = Bukkit.createInventory(player, size ,
+                    "Kits");
             InventoryMap map = new InventoryMap(inventory);
             int index = 0;
             for (Kit ownedKit : ownedKits) {
@@ -59,6 +63,7 @@ public class KitsCommand implements CommandExecutor {
                         BlockColor.BLACK.getId(), "");
 
                 index = InventoryUtils.calculateInventorySize(ownedKits.size());
+                System.out.println("INDEX " + index);
                 for (int i = 0; i < 9; i++) {
                     map.addSlot(new Slot(index, row.clone()));
                     index++;
@@ -67,6 +72,7 @@ public class KitsCommand implements CommandExecutor {
 
             for (Kit kit : kits) {
                 map.addSlot(new Slot(index, kit.getDisplayIcon(user), new KitItem(kit)));
+                index++;
             }
 
             map.generateInventory();

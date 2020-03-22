@@ -10,7 +10,6 @@ import me.theremixpvp.ckitpvp.configuration.PluginConfiguration;
 import me.theremixpvp.ckitpvp.kit.Kit;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -45,17 +44,6 @@ public class User implements EconomyProvider {
             this.info = info;
     }
 
-    private PlayerConfiguration.PlayerInfo createInfo(String name, UUID uuid) {
-        PlayerConfiguration.PlayerInfo info = new PlayerConfiguration.PlayerInfo();
-        info.kits = new ArrayList<>();
-        info.credits = PluginConfiguration.startMoney;
-        info.name = name;
-
-        KitPvP.playerConfig.players.put(uuid.toString(), info);
-
-        return info;
-    }
-
     public static User byPlayer(Player p) {
         return byUUID(p.getUniqueId());
     }
@@ -76,10 +64,12 @@ public class User implements EconomyProvider {
             user.setKills(info.kills);
             user.setDeaths(info.deaths);
 
+            final List<String> kits = info.kits == null ? new ArrayList<>() : info.kits;
+
             user.setKits(
                     Kit.getKits()
                             .stream()
-                            .filter(k -> info.kits.contains(k.getName()))
+                            .filter(k -> kits.contains(k.getName()))
                             .collect(Collectors.toList())
             );
 
@@ -109,6 +99,16 @@ public class User implements EconomyProvider {
         users.add(user);
     }
 
+    private PlayerConfiguration.PlayerInfo createInfo(String name, UUID uuid) {
+        PlayerConfiguration.PlayerInfo info = new PlayerConfiguration.PlayerInfo();
+        info.kits = new ArrayList<>();
+        info.credits = PluginConfiguration.startMoney;
+        info.name = name;
+
+        KitPvP.instance.addPlayer(uuid.toString(), info);
+
+        return info;
+    }
 
     public PlayerConfiguration.PlayerInfo getInfo() {
         return info;
@@ -164,20 +164,24 @@ public class User implements EconomyProvider {
 
     public void setKit(Kit kit) {
         this.kit = kit;
+        giveKitItems();
+        getPlayer().sendMessage("§dYou have selected the " + kit.getName() + " kit");
+    }
 
+    public void giveKitItems() {
         Player player = getPlayer();
         InventoryUtils.clearInventory(player.getInventory());
         PotionUtils.takeAllEffectsFromPlayer(player);
 
         for (ItemStack item : kit.getItems()) {
             Material m = item.getType();
-            if(ItemUtils.isHelmet(m))
+            if (ItemUtils.isHelmet(m))
                 player.getInventory().setHelmet(item);
-            else if(ItemUtils.isChestplate(m))
+            else if (ItemUtils.isChestplate(m))
                 player.getInventory().setChestplate(item);
-            else if(ItemUtils.isLeggings(m))
+            else if (ItemUtils.isLeggings(m))
                 player.getInventory().setLeggings(item);
-            else if(ItemUtils.isBoots(m))
+            else if (ItemUtils.isBoots(m))
                 player.getInventory().setBoots(item);
             else
                 player.getInventory().addItem(item);
@@ -190,6 +194,11 @@ public class User implements EconomyProvider {
     }
 
     @Override
+    public void setBalance(float amount) {
+        this.credits = (int) amount;
+    }
+
+    @Override
     public void removeBalance(float amount) {
         this.credits -= amount;
     }
@@ -197,11 +206,6 @@ public class User implements EconomyProvider {
     @Override
     public void addBalance(float amount) {
         this.credits += amount;
-    }
-
-    @Override
-    public void setBalance(float amount) {
-        this.credits = (int) amount;
     }
 
     public boolean kitUnlocked(String kitName) {

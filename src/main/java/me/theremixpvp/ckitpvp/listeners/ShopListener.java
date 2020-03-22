@@ -3,8 +3,6 @@ package me.theremixpvp.ckitpvp.listeners;
 import com.flouet.code.utilities.minecraft.api.inventory.Slot;
 import me.theremixpvp.ckitpvp.IClickable;
 import me.theremixpvp.ckitpvp.User;
-import me.theremixpvp.ckitpvp.shop.ShopItem;
-import me.theremixpvp.ckitpvp.shop.ShopMenu;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,6 +32,8 @@ public class ShopListener implements Listener {
 
         if (!user.getInventory().getInventory().equals(event.getClickedInventory()))
             return;
+
+        event.setCancelled(true);
 
         Slot slot = user.getInventory().findSlot(event.getRawSlot());
 

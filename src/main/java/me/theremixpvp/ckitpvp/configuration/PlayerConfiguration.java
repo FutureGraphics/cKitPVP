@@ -2,13 +2,14 @@ package me.theremixpvp.ckitpvp.configuration;
 
 import com.flouet.code.base.configuration.ConfigField;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PlayerConfiguration {
 
     @ConfigField
-    public Map<String, PlayerInfo> players;
+    public Map<String, PlayerInfo> players = new HashMap<>();
 
     public static class PlayerInfo {
 

@@ -32,12 +32,12 @@ public class SniperAbility extends Ability {
     }
 
     private void onEntityDeath(EntityDeathEvent event) {
-        if(event.getEntity().getKiller() == null || !(event.getEntity() instanceof Player))
+        if (event.getEntity().getKiller() == null || !(event.getEntity() instanceof Player))
             return;
 
         Player player = event.getEntity().getKiller();
         User user = User.byPlayer(player);
-        if(user.getKit() == null || user.getKit().getAbility() == null
+        if (user.getKit() == null || user.getKit().getAbility() == null
                 || !(user.getKit().getAbility() instanceof SniperAbility)) {
             return;
         }
@@ -46,7 +46,7 @@ public class SniperAbility extends Ability {
     }
 
     private void sniperBulletHit(EntityDamageByEntityEvent event) {
-        if(!event.getDamager().hasMetadata("isSniperBullet"))
+        if (!event.getDamager().hasMetadata("isSniperBullet"))
             return;
 
         event.setDamage(100);

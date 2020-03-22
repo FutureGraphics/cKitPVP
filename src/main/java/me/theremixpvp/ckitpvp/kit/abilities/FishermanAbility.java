@@ -26,7 +26,7 @@ public class FishermanAbility extends Ability {
     @Override
     protected void activate(Player player, User user, Event event) {
         PlayerFishEvent e = (PlayerFishEvent) event;
-        if(e.getCaught() instanceof Player) {
+        if (e.getCaught() instanceof Player) {
             e.getCaught().teleport(player.getLocation());
         }
 

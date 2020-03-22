@@ -26,14 +26,15 @@ public class Kit {
     private final String name;
     private final ItemStack displayIcon;
     private final List<ItemStack> items;
+    private final boolean needPermission;
 
-    private boolean needPermission;
     private Ability ability;
 
-    public Kit(String name, ItemStack displayIcon,  List<ItemStack> items) {
+    public Kit(String name, ItemStack displayIcon, List<ItemStack> items, boolean needPermission) {
         this.name = name;
         this.displayIcon = displayIcon;
         this.items = items;
+        this.needPermission = needPermission;
     }
 
     public static void parseKits(KitConfiguration configuration) {
@@ -44,7 +45,12 @@ public class Kit {
             KitConfiguration.ConfigKit configKit = entry.getValue();
 
             String name = entry.getKey();
+            boolean needPermission = configKit.permission;
             ItemStack displayIcon = configKit.displayItem;
+
+            if (displayIcon == null)
+                KitPvP.LOGGER.log(Level.WARNING, "Display Item of '" + name + "' is null");
+
             List<ItemStack> items = new ArrayList<>();
 
             for (String item : configKit.items) {
@@ -55,21 +61,15 @@ public class Kit {
                 }
             }
 
-            Kit kit = new Kit(name, displayIcon, items);
+            Kit kit = new Kit(name, displayIcon, items, needPermission);
             loadedKits.add(kit);
 
-            if(activeKits.contains(name))
+            if (activeKits.contains(name))
                 kits.add(kit);
         }
 
         KitPvP.LOGGER.log(Level.INFO, "Loaded " + activeKits.size() + " kits");
-    }
-
-    public boolean hasPlayerPermission(Player player) {
-        if(!needPermission)
-            return true;
-
-        return player.hasPermission("ckitpvp.kit." + this.name);
+        KitPvP.LOGGER.log(Level.INFO, "Active Kits: " + kits.size());
     }
 
     public static void unload(KitConfiguration configuration) {
@@ -81,7 +81,7 @@ public class Kit {
     }
 
     public static void activateKit(Kit kit) {
-        if(kits.contains(kit))
+        if (kits.contains(kit))
             return;
 
         kits.add(kit);
@@ -104,6 +104,13 @@ public class Kit {
         kits.remove(kit);
     }
 
+    public boolean hasPlayerPermission(Player player) {
+        if (!needPermission)
+            return true;
+
+        return player.hasPermission("ckitpvp.kit." + this.name);
+    }
+
     public String getName() {
         return name;
     }
@@ -124,18 +131,18 @@ public class Kit {
         ItemStack stack = this.displayIcon.clone();
         ItemMeta meta = stack.getItemMeta();
 
-        if(!meta.hasDisplayName())
+        if (!meta.hasDisplayName())
             meta.setDisplayName(this.name);
 
         List<String> lore;
-        if(meta.hasLore())
+        if (meta.hasLore())
             lore = meta.getLore();
         else
             lore = new ArrayList<>();
 
-        if(user.getUnlockedKits().contains(this))
+        if (user.getUnlockedKits().contains(this))
             lore.add("§a§lUNLOCKED");
-        else if(hasPlayerPermission(user.getPlayer()))
+        else if (hasPlayerPermission(user.getPlayer()))
             lore.add("§cNOT PURCHASED");
         else
             lore.add("§cLOCKED");

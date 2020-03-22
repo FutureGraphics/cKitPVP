@@ -24,7 +24,7 @@ public class RusherAbility extends Ability {
 
     @Override
     protected boolean canActivate(Event event) {
-        if(!(event instanceof PlayerInteractEvent))
+        if (!(event instanceof PlayerInteractEvent))
             return false;
 
         PlayerInteractEvent e = (PlayerInteractEvent) event;

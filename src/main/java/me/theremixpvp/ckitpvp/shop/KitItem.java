@@ -22,12 +22,14 @@ public class KitItem implements IClickable {
 
     @Override
     public void onClick(Player player, User user, Inventory inventory) {
-        if(!user.getUnlockedKits().contains(kit)) {
+        if (!user.getUnlockedKits().contains(kit)) {
             player.closeInventory();
             player.sendMessage("§cYou don't own this kit");
             return;
         }
 
         user.setKit(kit);
+
+        player.closeInventory();
     }
 }

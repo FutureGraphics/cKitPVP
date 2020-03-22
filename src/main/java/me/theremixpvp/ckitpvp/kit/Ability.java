@@ -6,8 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Florian Hergenhahn at 2020-03-18 <br>
@@ -102,6 +104,10 @@ public abstract class Ability {
         return this.kits;
     }
 
+    public Map<Class<? extends Event>, AbilityEventListener<? extends Event>> getAdditionalEventListener() {
+        return additionalEventListener;
+    }
+
     protected interface AbilityEventListener<T extends Event> {
 
         void onEvent(T event);
@@ -109,9 +115,5 @@ public abstract class Ability {
         default void trigger(Event event) {
             onEvent((T) event);
         }
-    }
-
-    public Map<Class<? extends Event>, AbilityEventListener<? extends Event>> getAdditionalEventListener() {
-        return additionalEventListener;
     }
 }

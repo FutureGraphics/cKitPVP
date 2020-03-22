@@ -9,7 +9,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
@@ -29,8 +28,8 @@ public class VisionMasterAbility extends Ability {
     }
 
     private void onArrowHit(EntityDamageByEntityEvent event) {
-        if(!(event.getDamager() instanceof Arrow) || event.getDamager().hasMetadata("isVisionArrow")
-        || !(event.getEntity() instanceof LivingEntity))
+        if (!(event.getDamager() instanceof Arrow) || event.getDamager().hasMetadata("isVisionArrow")
+                || !(event.getEntity() instanceof LivingEntity))
             return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
@@ -41,7 +40,7 @@ public class VisionMasterAbility extends Ability {
 
     @Override
     protected boolean canActivate(Event event) {
-        if(!(event instanceof PlayerInteractEvent))
+        if (!(event instanceof PlayerInteractEvent))
             return false;
 
         PlayerInteractEvent e = (PlayerInteractEvent) event;

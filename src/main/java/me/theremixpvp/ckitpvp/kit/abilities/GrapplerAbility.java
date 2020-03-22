@@ -28,7 +28,7 @@ public class GrapplerAbility extends Ability {
     @Override
     protected void activate(Player player, User user, Event event) {
         PlayerFishEvent e = (PlayerFishEvent) event;
-        if(e.getState() != PlayerFishEvent.State.IN_GROUND)
+        if (e.getState() != PlayerFishEvent.State.IN_GROUND)
             return;
 
         Location fm = player.getLocation();

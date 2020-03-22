@@ -1,6 +1,5 @@
 package me.theremixpvp.ckitpvp.commands;
 
-import me.theremixpvp.ckitpvp.KitPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +19,7 @@ public class MoreCommand implements CommandExecutor {
         }
 
         ItemStack stack = p.getItemInHand();
-        if(stack == null) {
+        if (stack == null) {
             p.sendMessage(ChatColor.RED + "You have nothing in your hand");
             return true;
         }

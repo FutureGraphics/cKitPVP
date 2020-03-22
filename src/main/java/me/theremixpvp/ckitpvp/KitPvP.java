@@ -29,13 +29,14 @@ public class KitPvP extends JavaPlugin {
 
     public static final Logger LOGGER = Logger.getLogger("cKitPvP");
     public static KitPvP instance;
-    public static PlayerConfiguration playerConfig;
     public static KitConfiguration kitConfiguration;
     public static ShopConfiguration shopConfiguration;
     public static MenuManager menuManager;
 
-    private static PluginConfigurationParser<KitConfiguration> kitConfigParser;
-    private static ConfigurationParser<PlayerConfiguration> playerConfigParser;
+    private PluginConfigurationParser<KitConfiguration> kitConfigParser;
+
+    private PlayerConfiguration playerConfig;
+    private ConfigurationParser<PlayerConfiguration> playerConfigParser;
 
     public void onEnable() {
         instance = this;
@@ -128,7 +129,7 @@ public class KitPvP extends JavaPlugin {
         if (!file.exists()) {
             LOGGER.log(Level.INFO, file.getName() + " does not exist, trying to copy from resources");
             try {
-                Files.copy(getResource(file.getName() + ".yml"), file.toPath());
+                Files.copy(getResource(file.getName()), file.toPath());
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "Could not copy " + file.getName() + " file into data folder", e);
             }
@@ -148,5 +149,9 @@ public class KitPvP extends JavaPlugin {
         }
 
         LOGGER.log(Level.INFO, "Configurations saved");
+    }
+
+    public void addPlayer(String uuid, PlayerConfiguration.PlayerInfo info) {
+        this.playerConfig.players.put(uuid, info);
     }
 }

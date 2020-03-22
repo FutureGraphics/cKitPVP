@@ -1,7 +1,6 @@
 package me.theremixpvp.ckitpvp.kit;
 
 import me.theremixpvp.ckitpvp.User;
-import me.theremixpvp.ckitpvp.kit.abilities.AcrobatAbility;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
